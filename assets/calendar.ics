@@ -1,0 +1,206 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//McD Activity Calendar//McD CN Campaigns//CN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:麦麦活动日历
+X-WR-TIMEZONE:Asia/Shanghai
+X-WR-CALDESC:麦当劳营销活动与优惠券 · 活动上线/截止自
+ 动提醒，点开即领券｜跨度超过 5 天的活动只在开始与
+ 截止两天各提醒一次
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:camp_202610_member_day-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261001
+DTEND;VALUE=DATE:20261002
+SUMMARY:麦当劳 10 月会员日 · 活动上线
+LOCATION:全国
+DESCRIPTION:【会员活动】麦当劳 10 月会员日\n时间：2026-10
+ -01 至 2026-10-31\n适用地区：全国\n\n会员日专享：每周三
+ 会员积分翻倍，指定套餐立减。登录麦当劳 App 领取专
+ 属优惠券。\n\n领取优惠券：https://mcdonalds.com.cn/member-day
+ \n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:会员\,全国
+URL:https://mcdonalds.com.cn/member-day
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_member_day-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:麦当劳 10 月会员日 · 即将截止
+LOCATION:全国
+DESCRIPTION:【会员活动】麦当劳 10 月会员日\n时间：2026-10
+ -01 至 2026-10-31\n适用地区：全国\n\n会员日专享：每周三
+ 会员积分翻倍，指定套餐立减。登录麦当劳 App 领取专
+ 属优惠券。\n\n领取优惠券：https://mcdonalds.com.cn/member-day
+ \n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:会员\,全国
+URL:https://mcdonalds.com.cn/member-day
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_lottery-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261010
+DTEND;VALUE=DATE:20261011
+SUMMARY:积分抽奖·赢免单 · 活动上线
+LOCATION:全国
+DESCRIPTION:【积分活动】积分抽奖·赢免单\n时间：2026-10-1
+ 0 至 2026-10-25\n适用地区：全国\n\n消耗积分参与抽奖，
+ 最高赢整单免单券，还有巨无霸兑换券等好礼。\n\n领
+ 取优惠券：https://mcdonalds.com.cn/lottery\n\n来源：麦当劳 MC
+ P · 活动日历
+CATEGORIES:积分\,全国
+URL:https://mcdonalds.com.cn/lottery
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_lottery-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261025
+DTEND;VALUE=DATE:20261026
+SUMMARY:积分抽奖·赢免单 · 即将截止
+LOCATION:全国
+DESCRIPTION:【积分活动】积分抽奖·赢免单\n时间：2026-10-1
+ 0 至 2026-10-25\n适用地区：全国\n\n消耗积分参与抽奖，
+ 最高赢整单免单券，还有巨无霸兑换券等好礼。\n\n领
+ 取优惠券：https://mcdonalds.com.cn/lottery\n\n来源：麦当劳 MC
+ P · 活动日历
+CATEGORIES:积分\,全国
+URL:https://mcdonalds.com.cn/lottery
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_breakfast_week-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:早餐卡优惠周 · 活动上线
+LOCATION:全国
+DESCRIPTION:【优惠券活动】早餐卡优惠周\n时间：2026-10-12 
+ 至 2026-10-19\n适用地区：全国\n\n早餐卡限时优惠周：麦
+ 满分系列第二件半价，任意早餐套餐减 5 元。\n\n领取
+ 优惠券：https://mcdonalds.com.cn/breakfast-week\n\n来源：麦当
+ 劳 MCP · 活动日历
+CATEGORIES:早餐\,全国
+URL:https://mcdonalds.com.cn/breakfast-week
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_breakfast_week-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261019
+DTEND;VALUE=DATE:20261020
+SUMMARY:早餐卡优惠周 · 即将截止
+LOCATION:全国
+DESCRIPTION:【优惠券活动】早餐卡优惠周\n时间：2026-10-12 
+ 至 2026-10-19\n适用地区：全国\n\n早餐卡限时优惠周：麦
+ 满分系列第二件半价，任意早餐套餐减 5 元。\n\n领取
+ 优惠券：https://mcdonalds.com.cn/breakfast-week\n\n来源：麦当
+ 劳 MCP · 活动日历
+CATEGORIES:早餐\,全国
+URL:https://mcdonalds.com.cn/breakfast-week
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_mccafe_half-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+SUMMARY:麦咖啡第二杯半价 · 活动上线
+LOCATION:全国
+DESCRIPTION:【优惠券活动】麦咖啡第二杯半价\n时间：2026-
+ 10-13 至 2026-10-25\n适用地区：全国\n\n麦咖啡全场第二杯
+ 半价，午后时段专享。\n\n领取优惠券：https://mcdonalds.co
+ m.cn/mccafe-half\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:咖啡\,全国
+URL:https://mcdonalds.com.cn/mccafe-half
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_mccafe_half-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261025
+DTEND;VALUE=DATE:20261026
+SUMMARY:麦咖啡第二杯半价 · 即将截止
+LOCATION:全国
+DESCRIPTION:【优惠券活动】麦咖啡第二杯半价\n时间：2026-
+ 10-13 至 2026-10-25\n适用地区：全国\n\n麦咖啡全场第二杯
+ 半价，午后时段专享。\n\n领取优惠券：https://mcdonalds.co
+ m.cn/mccafe-half\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:咖啡\,全国
+URL:https://mcdonalds.com.cn/mccafe-half
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_malaji_bogo@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261015
+DTEND;VALUE=DATE:20261019
+SUMMARY:麦辣鸡腿堡买一送一
+LOCATION:全国
+DESCRIPTION:【优惠券活动】麦辣鸡腿堡买一送一\n时间：20
+ 26-10-15 至 2026-10-18\n适用地区：全国\n\n麦辣鸡腿堡买一
+ 送一，每天限量 1000 份，先到先得。\n\n领取优惠券：ht
+ tps://mcdonalds.com.cn/malaji-bogo\n\n来源：麦当劳 MCP · 活动
+ 日历
+CATEGORIES:限时优惠\,全国
+URL:https://mcdonalds.com.cn/malaji-bogo
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_new_burger-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261016
+DTEND;VALUE=DATE:20261017
+SUMMARY:新品上市·黑松露安格斯堡 · 活动上线
+LOCATION:全国
+DESCRIPTION:【新品上市】新品上市·黑松露安格斯堡\n时间
+ ：2026-10-16 至 2026-10-31\n适用地区：全国\n\n黑松露安格
+ 斯堡全新上市，首周购买可领取新品立减券。\n\n领取
+ 优惠券：https://mcdonalds.com.cn/new-burger\n\n来源：麦当劳 MC
+ P · 活动日历
+CATEGORIES:新品\,全国
+URL:https://mcdonalds.com.cn/new-burger
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_new_burger-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:新品上市·黑松露安格斯堡 · 即将截止
+LOCATION:全国
+DESCRIPTION:【新品上市】新品上市·黑松露安格斯堡\n时间
+ ：2026-10-16 至 2026-10-31\n适用地区：全国\n\n黑松露安格
+ 斯堡全新上市，首周购买可领取新品立减券。\n\n领取
+ 优惠券：https://mcdonalds.com.cn/new-burger\n\n来源：麦当劳 MC
+ P · 活动日历
+CATEGORIES:新品\,全国
+URL:https://mcdonalds.com.cn/new-burger
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_bigmac_50-start@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+SUMMARY:巨无霸 50 周年庆 · 活动上线
+LOCATION:全国
+DESCRIPTION:【主题活动】巨无霸 50 周年庆\n时间：2026-10-20
+  至 2026-10-31\n适用地区：全国\n\n巨无霸 50 周年限定套
+ 餐上市，购买套餐可集点兑换周年徽章。\n\n领取优惠
+ 券：https://mcdonalds.com.cn/bigmac-50\n\n来源：麦当劳 MCP · 
+ 活动日历
+CATEGORIES:主题\,全国
+URL:https://mcdonalds.com.cn/bigmac-50
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_202610_bigmac_50-end@mcd-activity-calendar
+DTSTAMP:20261012T022820Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261101
+SUMMARY:巨无霸 50 周年庆 · 即将截止
+LOCATION:全国
+DESCRIPTION:【主题活动】巨无霸 50 周年庆\n时间：2026-10-20
+  至 2026-10-31\n适用地区：全国\n\n巨无霸 50 周年限定套
+ 餐上市，购买套餐可集点兑换周年徽章。\n\n领取优惠
+ 券：https://mcdonalds.com.cn/bigmac-50\n\n来源：麦当劳 MCP · 
+ 活动日历
+CATEGORIES:主题\,全国
+URL:https://mcdonalds.com.cn/bigmac-50
+END:VEVENT
+END:VCALENDAR

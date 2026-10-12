@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>订阅统计后台 · 麦麦活动日历</title>
+<style>
+  :root {
+    --mcd-red: #DA291C; --mcd-yellow: #FFC72C; --mcd-dark: #27251F;
+    --bg: #FFF8EF; --card: #FFFFFF; --text: #33302A; --muted: #8A8578; --line: #EFE6D8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .hero { background: linear-gradient(135deg, #27251F 0%, #111 100%); color: #fff; padding: 34px 20px; text-align: center; }
+  .hero h1 { font-size: 22px; font-weight: 700; }
+  .hero .sub { font-size: 13px; opacity: .75; margin-top: 6px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .stat { background: var(--card); border-radius: 16px; padding: 20px; box-shadow: 0 8px 28px rgba(39,37,31,.05); border: 1px solid var(--line); }
+  .stat .label { font-size: 13px; color: var(--muted); }
+  .stat .value { font-size: 34px; font-weight: 800; color: var(--mcd-red); margin-top: 4px; }
+  .stat .value.gold { color: #B8860B; }
+  .funnel { background: var(--card); border-radius: 16px; padding: 22px; margin-top: 18px; border: 1px solid var(--line); box-shadow: 0 8px 28px rgba(39,37,31,.05); }
+  .funnel h2 { font-size: 16px; margin-bottom: 16px; }
+  .step { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+  .step .bar { height: 34px; border-radius: 8px; background: var(--mcd-red); color: #fff; display: flex; align-items: center; padding: 0 12px; font-size: 13px; font-weight: 600; min-width: 40px; transition: width .4s; }
+  .step .bar.yellow { background: var(--mcd-yellow); color: var(--mcd-dark); }
+  .step .bar.dark { background: var(--mcd-dark); }
+  .step .nm { width: 110px; font-size: 13px; color: var(--muted); flex-shrink: 0; }
+  .step .rate { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .footer { text-align: center; font-size: 12px; color: var(--muted); padding: 10px 0; }
+  .footer a { color: var(--mcd-red); text-decoration: none; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 12px; padding: 10px 14px; background: #F5EFE4; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>📊 订阅统计后台</h1>
+  <div class="sub">麦麦活动日历 · 订阅转化漏斗（实时）</div>
+</div>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="stat"><div class="label">领取订阅码</div><div class="value" id="v-sub">—</div></div>
+    <div class="stat"><div class="label">确认订阅（推送）</div><div class="value" id="v-pull">—</div></div>
+    <div class="stat"><div class="label">点击领券</div><div class="value" id="v-click">—</div></div>
+    <div class="stat"><div class="label">跳转 App / 小程序</div><div class="value gold" id="v-redirect">—</div></div>
+  </div>
+
+  <div class="funnel">
+    <h2>转化漏斗</h2>
+    <div class="step">
+      <span class="nm">① 领订阅码</span><span class="bar" id="b-sub" style="width:100%">—</span>
+    </div>
+    <div class="step">
+      <span class="nm">② 确认订阅</span><span class="bar yellow" id="b-pull">—</span><span class="rate" id="r-pull"></span>
+    </div>
+    <div class="step">
+      <span class="nm">③ 点击领券</span><span class="bar" id="b-click">—</span><span class="rate" id="r-click"></span>
+    </div>
+    <div class="step">
+      <span class="nm">④ 跳转 App</span><span class="bar dark" id="b-redirect">—</span><span class="rate" id="r-redirect"></span>
+    </div>
+    <div class="note">
+      说明：②「确认订阅」为用户复制订阅地址的动作，作为「推送受众」的代理指标——
+      纯静态 ICS 文件无法精确统计日历客户端的真实拉取次数。③④ 为真实转化数据。
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">← 返回订阅页</a> · 本项目为参赛作品，非麦当劳官方产品
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script>
+(function () {
+  var cloud = null;
+  try {
+    cloud = WorkBuddyCloud.createWorkBuddyCloud({
+      endpoint: 'https://mcd-activity-calendar.app.workbuddy.host',
+      oauthRelayBaseUrl: 'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
+      publishableKey: 'wbpk_wpdpshm5Z7b5ofnGt1XXZ4_5b3wRitejgMSKR2YVfEvuPbwjqrwkLdQ'
+    });
+  } catch (e) { console.warn('cloud init failed', e); }
+
+  function $(id) { return document.getElementById(id); }
+
+  async function count(table, extra) {
+    if (!cloud) return 0;
+    var q = cloud.database.from(table).select('*', { count: 'exact', head: true });
+    if (extra && extra.eq) q = q.eq(extra.eq[0], extra.eq[1]);
+    var res = await q;
+    return res.count || 0;
+  }
+
+  function fmt(n) { return n == null ? '—' : n.toLocaleString(); }
+
+  async function load() {
+    var sub = await count('subscriptions');
+    var pull = await count('pulls');
+    var click = await count('clicks');
+    var redirect = await count('redirects');
+
+    $('v-sub').textContent = fmt(sub);
+    $('v-pull').textContent = fmt(pull);
+    $('v-click').textContent = fmt(click);
+    $('v-redirect').textContent = fmt(redirect);
+
+    var max = Math.max(sub, 1);
+    function pct(n) { return Math.max(3, Math.round(n / max * 100)); }
+    $('b-sub').textContent = fmt(sub);
+    $('b-sub').style.width = pct(sub) + '%';
+    $('b-pull').textContent = fmt(pull);
+    $('b-pull').style.width = pct(pull) + '%';
+    $('b-click').textContent = fmt(click);
+    $('b-click').style.width = pct(click) + '%';
+    $('b-redirect').textContent = fmt(redirect);
+    $('b-redirect').style.width = pct(redirect) + '%';
+
+    function rate(n) { return sub > 0 ? Math.round(n / sub * 100) + '%' : '—'; }
+    $('r-pull').textContent = '订阅率 ' + rate(pull);
+    $('r-click').textContent = '领券率 ' + rate(click);
+    $('r-redirect').textContent = '跳转率 ' + rate(redirect);
+  }
+
+  document.addEventListener('DOMContentLoaded', load);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# 依赖与日志
+node_modules/
+*.log
+
+# 真实密钥/Token（绝不提交，配置只用占位符）
+.env
+.env.*
+*.token
+mcp-config.json
+
+# WorkBuddy 本地元数据
+.workbuddy/
+.wbapp_*.genie
+
+# 临时文件
+/tmp/
+*.pyc
+__pycache__/
