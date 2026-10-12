@@ -63,6 +63,23 @@ def esc(s):
     s = '' if s is None else str(s)
     return s.replace('\\', '\\\\').replace(';', '\\;').replace(',', '\\,').replace('\r\n', '\\n').replace('\n', '\\n')
 
+# 麦当劳官网只有带 www 的域名有 DNS/HTTPS 服务；裸域名 mcdonalds.com.cn 无法解析会「无法打开网址」。
+# 这里统一纠正领券链接，避免日历里出现打不开的裸域名地址。
+MCD_HOME = 'https://www.mcdonalds.com.cn/'
+def normalize_coupon_url(u):
+    if not u:
+        return MCD_HOME
+    u = str(u).strip()
+    if not u.startswith(('http://', 'https://')):
+        u = 'https://' + u
+    # 裸域名 / 无 www 前缀 → 纠正为 www 官方可达域名
+    if '://mcdonalds.com.cn' in u and '://www.mcdonalds.com.cn' not in u:
+        u = u.replace('://mcdonalds.com.cn', '://www.mcdonalds.com.cn')
+    # member-day 等子路径实际会 302 回首页，统一落到官方首页确保可达
+    if '://www.mcdonalds.com.cn' in u and u.rstrip('/') != 'https://www.mcdonalds.com.cn':
+        u = MCD_HOME
+    return u
+
 def ymd(s):
     return str(s)[:10].replace('-', '')
 
@@ -124,13 +141,12 @@ def build(rows, name):
                 d.append('适用地区：' + a['region'])
             if a.get('description'):
                 d += ['', a['description']]
-            if a.get('coupon_link'):
-                d += ['', '领取优惠券：' + a['coupon_link']]
+            link = normalize_coupon_url(a.get('coupon_link'))
+            d += ['', '领取优惠券：' + link]
             d += ['', '来源：麦当劳 MCP · 活动日历']
             L.append('DESCRIPTION:' + esc('\n'.join(d)))
             L.append('CATEGORIES:' + esc((a.get('category') or a.get('type') or '麦当劳') + (',' + a['region'] if a.get('region') else '')))
-            if a.get('coupon_link'):
-                L.append('URL:' + a['coupon_link'])
+            L.append('URL:' + link)
             L.append('END:VEVENT')
     L.append('END:VCALENDAR')
     return '\r\n'.join(fold(x) for x in L) + '\r\n'

@@ -267,13 +267,31 @@
     document.body.removeChild(ta); cb();
   }
 
+  /* 麦当劳官网只有带 www 的域名可达；裸域名 mcdonalds.com.cn 无法解析会「无法打开网址」。
+     这里统一纠正领券链接，并兜底到官方首页，确保点了就能打开。 */
+  var MCD_HOME = 'https://www.mcdonalds.com.cn/';
+  function normalizeUrl(u) {
+    if (!u) return MCD_HOME;
+    u = String(u).trim();
+    if (u.indexOf('://') === -1) u = 'https://' + u;
+    if (u.indexOf('://mcdonalds.com.cn') !== -1 && u.indexOf('://www.mcdonalds.com.cn') === -1) {
+      u = u.replace('://mcdonalds.com.cn', '://www.mcdonalds.com.cn');
+    }
+    if (u.indexOf('://www.mcdonalds.com.cn') !== -1 && u.replace(/\/+$/, '') !== 'https://www.mcdonalds.com.cn') {
+      u = MCD_HOME;  // 子路径（如 /member-day）会 302 回首页，统一落到首页确保可达
+    }
+    return u;
+  }
+
   function trackClick(campaignId, link) {
     if (cloud) {
       cloud.database.from('clicks').insert({ code: myCode || null, campaign_id: campaignId })
         .then(function () {}).catch(function (e) { console.warn('click log failed', e); });
     }
+    var target = normalizeUrl(link);
+    toast('正在打开麦当劳官网…');
     // 直接跳转（location.href 比 window.open 更稳，不会被弹窗拦截）
-    if (link) { window.location.href = link; }
+    setTimeout(function () { window.location.href = target; }, 120);
   }
 
   function goApp(target) {
@@ -323,21 +341,45 @@
 
   // 第一时间获取用户位置，地图以用户为中心；定位失败才回退到门店中心
   function locateAndInitMap(stores) {
+    var mapEl = $('map');
     if (typeof TMap === 'undefined' || !stores.length) {
-      $('map').innerHTML = '<div class="tip">地图加载中或暂无门店数据…</div>';
+      mapEl.innerHTML = '<div class="tip">地图加载中或暂无门店数据…</div>';
       return;
     }
-    if (navigator.geolocation) {
+    // 定位状态提示条（定位中 / 已定位 / 定位失败可重试）
+    var statusEl = document.createElement('div');
+    statusEl.className = 'tip';
+    statusEl.id = 'locateStatus';
+    statusEl.style.marginBottom = '8px';
+    mapEl.parentNode.insertBefore(statusEl, mapEl);
+
+    function setStatus(html) { if ($('locateStatus')) $('locateStatus').innerHTML = html; }
+    setStatus('📍 正在获取你的位置，地图将以你为中心…');
+
+    function tryLocate() {
+      if (!navigator.geolocation) {
+        setStatus('⚠️ 当前浏览器不支持定位，已显示默认门店');
+        initMap(stores, null);
+        return;
+      }
+      setStatus('📍 正在获取你的位置，地图将以你为中心…');
       navigator.geolocation.getCurrentPosition(
         function (pos) {
+          setStatus('✅ 已定位到你的位置（蓝色圆点），门店已按距离排序');
           initMap(stores, { lat: pos.coords.latitude, lng: pos.coords.longitude });
         },
-        function () { initMap(stores, null); },   // 用户拒绝/失败 → 回退门店中心
-        { enableHighAccuracy: true, timeout: 6000, maximumAge: 300000 }
+        function (err) {
+          var msg = '⚠️ 定位未授权或失败，已按默认门店显示';
+          if (err && err.code === 1) msg = '⚠️ 定位被拒绝，点击 <a href="javascript:;" onclick="retryLocate()" style="color:#1A66D8">重新定位</a> 授权';
+          else if (err && err.code === 3) msg = '⚠️ 定位超时，点击 <a href="javascript:;" onclick="retryLocate()" style="color:#1A66D8">重试</a>';
+          setStatus(msg);
+          initMap(stores, null);
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 }
       );
-    } else {
-      initMap(stores, null);
     }
+    window.retryLocate = tryLocate;
+    tryLocate();
   }
 
   function initMap(stores, userPos) {
