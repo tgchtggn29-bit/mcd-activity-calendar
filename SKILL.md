@@ -1,71 +1,76 @@
 ---
 name: mcd-activity-calendar
-description: 麦当劳活动推荐助手。基于麦当劳 MCP 能力，把麦当劳营销活动日历与优惠券写入 ICS 日历，用户通过远程日历 URL 在手机日历里订阅，即可收到活动上线/截止推送，点开活动链接直接跳转领券，并推荐附近麦当劳门店地图。当用户说「麦当劳活动」「麦麦活动日历」「订阅麦当劳活动」「麦当劳优惠券日历」「更新麦当劳活动」「附近麦当劳门店」「麦当劳活动推送」时使用。
+description: 麦麦权益与收藏日历（McCalendar）。基于麦当劳 MCP 能力，把营销活动、收藏品上新、积分兑换与优惠券做成可订阅的 ICS 日历，PC 端 WorkBuddy 里用自然语言查询/领券/查积分，手机端通过远程日历 URL 订阅并提前一天提醒。当用户说「麦当劳活动」「麦麦活动」「订阅麦当劳日历」「麦当劳收藏品」「帮我领券」「查我的积分」「积分抽奖」「麦当劳主题活动」「附近麦当劳」时使用。
 ---
 
-# 麦当劳活动推荐助手
+# 麦麦权益与收藏日历（McCalendar）
 
-把麦当劳的营销活动日历变成一个**可订阅的 ICS 日历**：用户在手机/电脑日历里订阅一个 URL，
-活动上线、即将截止时自动收到提醒，点开提醒里的链接直接跳转领取优惠券，落地页还附带附近门店地图。
+把麦当劳的**营销活动、收藏品上新、优惠券、积分权益**变成一个可持续更新的日历订阅服务：
 
-核心思路复用「湾区 AI 日历」的订阅链路，但数据源换成麦当劳 MCP 的营销活动日历。
+- **手机端**：订阅一个远程日历 URL，活动上线、收藏品发售、积分到期前**提前一天提醒**
+- **PC 端**：在 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品、生成日历订阅链接
 
-## 一、能力概览
+核心思路复用「湾区 AI 日历」的 ICS 订阅链路，数据源是麦当劳 MCP（35 个真实工具）。
 
-| 能力 | 依赖的麦当劳 MCP 工具 | 产物 |
+## 一、能力与 MCP 工具映射
+
+| 模块 | 麦当劳 MCP 工具 | 产物 |
 |---|---|---|
-| 拉取活动日历 | `campaign-calendar`（营销活动日历查询） | `data/campaigns.json` |
-| 生成订阅日历 | 本地脚本 | `assets/calendar.ics` |
-| 领券跳转 | 活动自带领券链接 | 日历 VEVENT 的 `URL` 字段 |
-| 附近门店推荐 | `query-nearby-stores`（附近门店查询） | `data/stores.json` + 落地页地图 |
-| 订阅统计后台 | `available-coupons` / 落地页埋点 | 云数据库统计面板 |
+| 活动日历 | `campaign-calendar` | `data/campaigns.json` → `assets/calendar.ics` |
+| 收藏日历 | `mall-points-products` / `mall-product-detail` | `data/products.json` → `assets/calendar-collectibles.ics` |
+| 优惠券 | `available-coupons` / `auto-bind-coupons` / `query-my-coupons` | `data/coupons.json`（个人授权） |
+| 积分权益 | `query-my-account` / `mall-points-products` | `data/my_account.json`（个人授权） |
+| 积分抽奖 | `query-lottery-info` / `query-my-prizes` / `draw-lottery` | `data/lottery.json`（个人授权） |
+| 主题活动 | `query-party-city` / `query-party-store` / `query-party-store-date` / `query-party-store-session` | 派对/体验营/品鉴会场次 |
+| 附近门店 | `query-nearby-stores` | 落地页地图 |
+| 时间校准 | `now-time-info` | 校准日期口径 |
 
-## 二、工作流（在 WorkBuddy 里怎么用）
+## 二、工作流
 
-### 1. 更新活动日历（核心流程）
+### 1. 采集全部数据（核心脚本）
 
-用户说「**更新麦当劳活动日历**」时，按顺序执行：
+用户说「**更新麦当劳日历**」「**刷新麦麦数据**」时：
 
-1. **调用 MCP 工具** `campaign-calendar` 拉取当月营销活动（进行中 + 未来活动）
-2. **结构化落盘**：把返回的活动映射成 `data/campaigns.json`，每条活动字段见下方「数据模型」
-3. **生成 ICS**：运行
-   ```bash
-   python3 scripts/gen_calendar_ics.py data/campaigns.json assets/calendar.ics --cal-name "麦麦活动日历"
-   ```
-4. **发布**：把 `assets/calendar.ics` 上传到订阅地址（GitHub Pages / 托管静态目录），
-   让用户订阅的远程 URL 拿到最新内容
+```bash
+python3 scripts/collect_data.py        # 采集活动/收藏品/优惠券/积分/抽奖 → data/*.json
+python3 scripts/gen_calendars.py       # 生成三个 ICS → assets/*.ics
+python3 scripts/sync_summary.py        # 生成前端 summary.json（仅公共数据）
+```
 
-> 映射规则：MCP 返回的活动字段与本项目 `data/campaigns.json` 字段名可能不同，
-> 调用后用 `now-time-info` 校准当前日期，把活动名→`title`、开始→`start_date`、
-> 结束→`end_date`、领券链接→`coupon_link`、类型→`type`，其余信息塞进 `description`。
+> 采集脚本内部调用 `mcp_call.py` 连麦当劳 MCP，Token 从环境变量 `MCD_MCP_TOKEN` 或脚本默认值读取。
 
-### 2. 帮用户订阅
+### 2. 帮用户领券（个人授权）
 
-用户说「**订阅麦当劳活动**」时：
-- 给出订阅地址（远程日历 URL），并附 iOS / Android / 电脑日历的添加步骤
-- 订阅链接示例：`https://<你的托管域名>/assets/calendar.ics`（可用 `webcal://` 前缀）
+用户说「**帮我领券**」「**一键领券**」时：
 
-### 3. 推荐附近门店
+1. 确认这是用户本人授权的账户操作（PRD 要求：领券等账户操作必须经用户授权）
+2. 调用 `auto-bind-coupons` 自动领取全部可用券
+3. 也可先 `available-coupons` 列出可领券，让用户选择
 
-用户说「**附近有哪些麦当劳**」或给出地址时：
-- 调用 MCP 工具 `query-nearby-stores` 查询该地址附近的麦当劳门店
-- 把门店列表（名称/地址/经纬度/距离）写入 `data/stores.json`
-- 落地页 `index.html` 会用腾讯地图标出门店位置
+### 3. 查积分 / 卡包 / 抽奖（个人授权）
 
-### 4. 订阅统计
+- 「**我有多少积分**」→ `query-my-account`
+- 「**我有什么券**」→ `query-my-coupons`
+- 「**抽奖有什么奖品**」→ `query-lottery-info`（`draw-lottery` 需用户明确确认后才调用，避免误扣积分）
 
-落地页已埋点：领订阅码、点击领券、跳转 App/小程序都会写入云数据库，
-统计面板（`dashboard.html`）公开展示转化漏斗。
+### 4. 收藏品 / 主题活动查询
 
-## 三、相关 MCP 工具速查
+- 「**有哪些收藏品上新**」→ `mall-points-products`（`catRuleIds` 筛选玩具/周边等）
+- 「**深圳有哪些主题派对**」→ `query-party-city` → `query-party-store` → `query-party-store-date` → `query-party-store-session`
 
-| 工具 | 用途 | 本 skill 用法 |
-|---|---|---|
-| `campaign-calendar` | 查询当月营销活动日历 | 拉活动、生成 ICS 的数据源 |
-| `query-nearby-stores` | 查附近门店 | 门店地图推荐 |
-| `available-coupons` | 麦麦省可领券列表 | 补充领券链接 |
-| `auto-bind-coupons` | 麦麦省一键领券 | 领券场景 |
-| `now-time-info` | 获取当前时间 | 校准活动日期口径 |
+### 5. 生成订阅链接
+
+- 「**生成苹果日历订阅链接**」→ 返回 `assets/calendar.ics` 的 URL（`webcal://` 前缀）
+- 三个日历：活动 `calendar.ics`、收藏 `calendar-collectibles.ics`、权益 `calendar-benefits.ics`
+
+## 三、订阅口径（重要）
+
+与「湾区 AI 日历」一致，避免日历被长期活动铺满：
+
+- 跨度 ≤ 5 天：整段显示
+- 跨度 > 5 天：只在**开始日**（「上线」）和**结束日**（「截止」）各放一条
+- `rolling: true` 的长期滚动活动：排除
+- **收藏品/权益**：发售前一天、截止前一天各通过 `VALARM` 提醒（未来事件才触发，已发生不补发）
 
 ## 四、数据模型
 
@@ -73,59 +78,62 @@ description: 麦当劳活动推荐助手。基于麦当劳 MCP 能力，把麦�
 
 ```json
 {
-  "id": "camp_202610_xxx",        // 稳定唯一 id（活动不变则 id 不变，避免日历重复）
-  "title": "活动名称",
-  "start_date": "2026-10-10",     // 开始日期
-  "end_date": "2026-10-20",       // 结束日期（可选，缺省单日）
-  "type": "优惠券活动",            // 活动类型
-  "category": "限时优惠",          // 分类标签
-  "region": "全国",               // 适用地区
-  "coupon_link": "https://...",    // 领券链接（进日历 URL 字段，点开跳转领券）
-  "description": "活动说明",
-  "rolling": false                // true = 长期滚动开放，会从日历排除
+  "id": "camp_xxx", "title": "活动名",
+  "start_date": "2026-10-08", "end_date": "2026-10-21",
+  "type": "营销活动", "category": "活动", "region": "全国",
+  "coupon_link": "https://www.mcdonalds.com.cn/news/...",
+  "app_jump_url": "mcdapp://...", "image": "https://...",
+  "button_text": "立即领券", "highlights": "...", "description": "...",
+  "rolling": false
 }
 ```
 
-### 门店 `data/stores.json`
+### 收藏品/积分商品 `data/products.json`
 
 ```json
 {
-  "id": "store_001",
-  "name": "麦当劳（中关村店）",
-  "address": "北京市海淀区中关村大街 27 号",
-  "lat": 39.984104,
-  "lng": 116.307503,
-  "distance": "距你 0.8 km",
-  "open_hours": "07:00-22:00"
+  "id": "prod_1830", "spu_id": 1830, "name": "麦当劳亲子读书会",
+  "image": "https://...", "point": "0", "price": "45",
+  "category": "读书会", "selling": "...",
+  "up_time": "2023-03-29 00:00:00", "down_time": "2026-12-30 23:59:59", "status": 2
 }
 ```
 
-## 五、订阅口径（重要）
+## 五、隐私与合规（PRD 硬性要求）
 
-与「湾区 AI 日历」一致，避免日历被长期活动铺满：
-
-- 跨度 ≤ 5 天的活动：整段显示
-- 跨度 > 5 天的活动：只在**开始日**（「活动上线」）和**结束日**（「即将截止」）各放一条日程，
-  让用户在活动上线当天和即将结束当天各收到一次提醒——这对领券活动尤其关键
-- `rolling: true` 的长期滚动活动：排除，不占日历
+- **个人数据（积分余额、卡包券、奖品、领券操作）绝不进公共订阅源**：`data/summary.json` 只含 `campaigns` / `products` / `coupons`（可领券列表是公共的），不含 `my_account` / `my_coupons` / `lottery`。
+- 领券、抽奖、查积分等账户操作，必须在用户明确授权（配置本人 MCP Token）后执行。
+- 订阅 URL 不包含账号 Token、手机号、个人券码等敏感资料。
+- 失败的数据查询不得当作「无活动/无库存」；不将演示数据当真实官方数据。
 
 ## 六、目录结构
 
 ```
 mcd-activity-calendar/
-├── SKILL.md                  # 本文件
-├── README.md                 # 项目介绍
-├── CONTEST_DECLARATION.md    # 官方参赛声明（不可改动）
-├── MCP_INTEGRATION.md        # MCP 集成说明
-├── mcp-config.example.json   # 脱敏配置示例
-├── workbuddy.md              # WorkBuddy 对话上下文
+├── SKILL.md                    # 本文件
+├── README.md                   # 项目介绍（含订阅教程）
+├── CONTEST_DECLARATION.md      # 官方参赛声明（不可改动）
+├── MCP_INTEGRATION.md          # MCP 集成说明
+├── mcp-config.example.json     # 脱敏配置示例
+├── workbuddy.md                # WorkBuddy 对话上下文
 ├── scripts/
-│   └── gen_calendar_ics.py   # JSON → ICS 生成器
+│   ├── mcp_call.py             # MCP 调用客户端
+│   ├── collect_data.py         # 采集全部数据
+│   ├── gen_calendars.py        # 多类别 ICS 生成器（含提前一天 VALARM）
+│   ├── gen_calendar_ics.py     # 旧版活动日历生成器（兼容）
+│   └── sync_summary.py         # 生成前端 summary.json
 ├── data/
-│   ├── campaigns.json        # 活动数据库
-│   └── stores.json           # 门店数据库
+│   ├── campaigns.json          # 活动
+│   ├── products.json           # 收藏品/积分商品
+│   ├── coupons.json            # 可领券（公共）
+│   ├── my_account.json         # 积分（个人，不入 summary）
+│   ├── my_coupons.json         # 卡包券（个人，不入 summary）
+│   ├── lottery.json            # 抽奖（个人，不入 summary）
+│   └── summary.json            # 前端公共数据汇总
 ├── assets/
-│   └── calendar.ics          # 订阅文件（静态托管）
-├── index.html                # 订阅落地页（订阅 + 活动 + 门店地图）
-└── dashboard.html            # 订阅统计面板
+│   ├── calendar.ics            # 活动日历
+│   ├── calendar-collectibles.ics  # 收藏日历
+│   └── calendar-benefits.ics   # 权益日历
+├── index.html                  # 订阅落地页（多 Tab）
+└── dashboard.html              # 订阅统计面板
 ```

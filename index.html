@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>麦麦活动日历 · 订阅麦当劳活动</title>
+<title>麦麦权益与收藏日历 · McCalendar</title>
 <style>
   :root {
     --mcd-red: #DA291C;
@@ -18,39 +18,38 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
+    background: var(--bg); color: var(--text); line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
   .hero {
     background: linear-gradient(135deg, #DA291C 0%, #B71F14 100%);
-    color: #fff;
-    padding: 40px 20px 64px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    color: #fff; padding: 40px 20px 56px; text-align: center; position: relative; overflow: hidden;
   }
-  .hero::after {
-    content: "🍔";
-    position: absolute;
-    right: -10px;
-    bottom: -20px;
-    font-size: 120px;
-    opacity: .15;
-  }
+  .hero::after { content: "🍟"; position: absolute; right: -10px; bottom: -20px; font-size: 120px; opacity: .15; }
   .hero h1 { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
   .hero .sub { margin-top: 8px; font-size: 14px; opacity: .9; }
-  .wrap { max-width: 640px; margin: -40px auto 0; padding: 0 16px 48px; position: relative; }
+
+  .tabs {
+    max-width: 760px; margin: -28px auto 0; padding: 0 16px; position: relative;
+    display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    flex: 0 0 auto; padding: 10px 18px; border-radius: 20px 20px 0 0; background: #F5EFE4;
+    color: var(--muted); font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid var(--line);
+    border-bottom: none; white-space: nowrap;
+  }
+  .tab.active { background: var(--card); color: var(--mcd-red); }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
   .card {
-    background: var(--card);
-    border-radius: 16px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 28px rgba(39,37,31,.06);
-    border: 1px solid var(--line);
+    background: var(--card); border-radius: 16px; padding: 22px; margin-bottom: 18px;
+    box-shadow: 0 8px 28px rgba(39,37,31,.06); border: 1px solid var(--line);
   }
   .card h2 { font-size: 17px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card h3 { font-size: 15px; margin: 14px 0 8px; color: var(--mcd-dark); }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 6px;
     background: var(--mcd-red); color: #fff; border: none; border-radius: 24px;
@@ -63,137 +62,191 @@
   .btn.outline { background: #fff; color: var(--mcd-red); border: 1.5px solid var(--mcd-red); }
   .btn.small { padding: 8px 16px; font-size: 13px; }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .row .btn { flex: 1; min-width: 130px; }
+  .tip { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
   .sub-url {
     background: #F5EFE4; border: 1px dashed #D8CBB6; border-radius: 10px;
     padding: 12px 14px; font-size: 12.5px; word-break: break-all; color: #6B6457;
     margin: 12px 0; user-select: all;
   }
-  .code-box {
-    text-align: center; padding: 10px 0;
-  }
-  .code {
-    font-family: "SF Mono", Menlo, monospace; font-size: 20px; font-weight: 700;
-    color: var(--mcd-red); letter-spacing: 2px; background: #FFF3F2;
-    border-radius: 8px; padding: 8px 16px; display: inline-block; margin: 6px 0;
-  }
-  .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-  .row .btn { flex: 1; min-width: 140px; }
-  .tip { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
   .steps { list-style: none; counter-reset: s; margin-top: 12px; }
   .steps li { position: relative; padding-left: 30px; margin: 8px 0; font-size: 14px; }
-  .steps li::before {
-    counter-increment: s; content: counter(s);
-    position: absolute; left: 0; top: 1px; width: 20px; height: 20px;
-    background: var(--mcd-yellow); color: var(--mcd-dark); border-radius: 50%;
-    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
-  }
-  .event { border-bottom: 1px solid var(--line); padding: 14px 0; }
-  .event:last-child { border-bottom: none; }
-  .event .title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 1px; width: 20px; height: 20px; background: var(--mcd-yellow); color: var(--mcd-dark); border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+  .item { border-bottom: 1px solid var(--line); padding: 14px 0; }
+  .item:last-child { border-bottom: none; }
+  .item .title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .badge { font-size: 11px; background: #FFF3F2; color: var(--mcd-red); border-radius: 4px; padding: 2px 8px; font-weight: 500; }
   .badge.blue { background: #EAF2FF; color: #1A66D8; }
-  .event .meta { font-size: 12.5px; color: var(--muted); margin: 6px 0; }
-  .event .desc { font-size: 13px; color: #5A5448; margin-bottom: 10px; }
-  .event .actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  #map { width: 100%; height: 340px; border-radius: 12px; }
+  .badge.green { background: #EAF7EF; color: #1E8E3E; }
+  .item .meta { font-size: 12.5px; color: var(--muted); margin: 6px 0; }
+  .item .desc { font-size: 13px; color: #5A5448; margin-bottom: 10px; }
+  .item .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .prod { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; }
+  .prod img { width: 100%; height: 110px; object-fit: cover; display: block; background: #F5EFE4; }
+  .prod .pbody { padding: 10px; }
+  .prod .pname { font-size: 13px; font-weight: 600; line-height: 1.3; height: 34px; overflow: hidden; }
+  .prod .ppoint { font-size: 12px; color: var(--mcd-red); font-weight: 700; margin-top: 4px; }
+  .prod .pcat { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .stat { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+  .stat .box { flex: 1; min-width: 100px; background: #FFF8EF; border-radius: 10px; padding: 12px; text-align: center; }
+  .stat .num { font-size: 20px; font-weight: 700; color: var(--mcd-red); }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  #map { width: 100%; height: 320px; border-radius: 12px; }
   .store-list { margin-top: 14px; }
   .store { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
   .store:last-child { border-bottom: none; }
   .store .dot { width: 10px; height: 10px; background: var(--mcd-red); border-radius: 50%; flex-shrink: 0; }
   .store .nm { font-size: 14px; font-weight: 600; }
   .store .ad { font-size: 12px; color: var(--muted); }
+
   .footer { text-align: center; font-size: 12px; color: var(--muted); padding: 10px 0 30px; }
   .footer a { color: var(--mcd-red); text-decoration: none; }
-  .toast {
-    position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(80px);
-    background: var(--mcd-dark); color: #fff; padding: 12px 22px; border-radius: 24px;
-    font-size: 14px; opacity: 0; transition: all .3s; z-index: 999; pointer-events: none;
-  }
+  .toast { position: fixed; left: 50%; bottom: 40px; transform: translateX(-50%) translateY(80px); background: var(--mcd-dark); color: #fff; padding: 12px 22px; border-radius: 24px; font-size: 14px; opacity: 0; transition: all .3s; z-index: 999; pointer-events: none; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .muted-note { background: #FFF8EF; border-left: 3px solid var(--mcd-yellow); padding: 10px 14px; font-size: 12.5px; color: #6B6457; border-radius: 0 8px 8px 0; margin: 10px 0; }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <h1>🍟 麦麦活动日历</h1>
-  <div class="sub">订阅麦当劳活动，上线 / 截止自动提醒，点开即领券</div>
+  <h1>🍟 麦麦权益与收藏日历</h1>
+  <div class="sub">活动 · 收藏品 · 优惠券 · 积分 · 抽奖，订阅一次长期更新，提前一天提醒</div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-panel="p-home">首页</div>
+  <div class="tab" data-panel="p-activity">活动日历</div>
+  <div class="tab" data-panel="p-collect">收藏日历</div>
+  <div class="tab" data-panel="p-coupon">优惠券</div>
+  <div class="tab" data-panel="p-points">积分权益</div>
+  <div class="tab" data-panel="p-lottery">抽奖</div>
+  <div class="tab" data-panel="p-store">附近门店</div>
 </div>
 
 <div class="wrap">
 
-  <!-- 订阅区 -->
-  <div class="card">
-    <h2>📅 订阅麦当劳活动</h2>
-    <ol class="steps">
-      <li>点击「领取订阅码」，生成你的专属订阅地址</li>
-      <li>复制订阅地址，添加到手机 / 电脑日历</li>
-      <li>活动上线、即将截止时，日历自动提醒你</li>
-    </ol>
-    <div class="code-box" id="codeBox" style="display:none;">
-      <div>你的订阅码</div>
-      <div class="code" id="codeShow">—</div>
-      <div class="sub-url" id="subUrl"></div>
+  <div class="panel active" id="p-home">
+    <div class="card">
+      <h2>📅 订阅麦麦日历</h2>
+      <ol class="steps">
+        <li>选择下方要订阅的日历类别，复制订阅地址</li>
+        <li>添加到手机 / 电脑日历（通过 URL 添加）</li>
+        <li>活动上线、收藏品发售前一天自动提醒你</li>
+      </ol>
+      <h3>可选订阅日历</h3>
+      <div class="sub-url" id="icsCampaign">加载中…</div>
+      <button class="btn small yellow" onclick="copyText(document.getElementById('icsCampaign').textContent, '活动日历')">📋 复制活动日历地址</button>
+      <div class="sub-url" id="icsCollect">加载中…</div>
+      <button class="btn small yellow" onclick="copyText(document.getElementById('icsCollect').textContent, '收藏日历')">📋 复制收藏日历地址</button>
+      <div class="sub-url" id="icsBenefit">加载中…</div>
+      <button class="btn small yellow" onclick="copyText(document.getElementById('icsBenefit').textContent, '权益日历')">📋 复制权益日历地址</button>
+      <div class="tip">订阅地址带专属订阅码，用于统计订阅与领券转化（不收集隐私信息）。</div>
+      <div class="row">
+        <button class="btn" onclick="claimCode()">🎟️ 领取订阅码</button>
+        <button class="btn outline" onclick="goApp('app')">打开麦当劳 App</button>
+      </div>
+      <div class="muted-note">个人权益（领券 / 积分 / 卡包）需在 WorkBuddy 中配置你的麦当劳 MCP Token 并授权后使用。</div>
     </div>
-    <div class="row">
-      <button class="btn" id="btnClaim" onclick="claimCode()">🎟️ 领取订阅码</button>
-      <button class="btn yellow" id="btnCopy" onclick="copySub()" disabled>📋 复制订阅地址</button>
-    </div>
-    <div class="tip" id="claimTip">订阅地址会带上你的专属订阅码，用于统计推送与领券转化（不收集隐私信息）。</div>
   </div>
 
-  <!-- 活动列表 -->
-  <div class="card">
-    <h2>🎁 本月活动（<span id="eventCount">0</span>）</h2>
-    <div id="eventList"><div class="tip">加载中…</div></div>
-  </div>
-
-  <!-- 门店地图 -->
-  <div class="card">
-    <h2>📍 附近门店</h2>
-    <div id="map"></div>
-    <div class="store-list" id="storeList"></div>
-  </div>
-
-  <!-- 跳转 App -->
-  <div class="card">
-    <h2>📱 打开麦当劳</h2>
-    <div class="row">
-      <button class="btn outline" onclick="goApp('app')">打开麦当劳 App</button>
-      <button class="btn outline" onclick="goApp('miniprogram')">打开微信小程序</button>
+  <div class="panel" id="p-activity">
+    <div class="card">
+      <h2>🎁 本月活动（<span id="eventCount">0</span>）</h2>
+      <div id="eventList"><div class="tip">加载中…</div></div>
     </div>
-    <div class="tip">跳转行为会记入订阅统计，用于分析「订阅 → 到店」转化。</div>
+  </div>
+
+  <div class="panel" id="p-collect">
+    <div class="card">
+      <h2>🧸 收藏品与联名周边（<span id="collCount">0</span>）</h2>
+      <div class="tip">玩具 · 手办 · IP 联名 · 限定赠品 · 积分实物，发售前一天提醒。</div>
+      <div class="grid" id="collectGrid"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="p-coupon">
+    <div class="card">
+      <h2>🎟️ 可领优惠券（<span id="couponCount">0</span>）</h2>
+      <div id="couponList"><div class="tip">加载中…</div></div>
+      <div class="muted-note">「一键领券」需个人授权。在 WorkBuddy 里说「帮我领券」即可自动领取全部可用券。</div>
+    </div>
+  </div>
+
+  <div class="panel" id="p-points">
+    <div class="card">
+      <h2>⭐ 我的积分</h2>
+      <div class="stat" id="accountStat"><div class="tip">加载中…</div></div>
+      <h3>积分可兑换（<span id="benefitCount">0</span>）</h3>
+      <div class="grid" id="benefitGrid"></div>
+      <div class="muted-note">积分余额、卡包券、兑换资格需个人授权后由 WorkBuddy 查询。</div>
+    </div>
+  </div>
+
+  <div class="panel" id="p-lottery">
+    <div class="card">
+      <h2>🎰 积分抽奖</h2>
+      <div id="lotteryInfo"><div class="tip">加载中…</div></div>
+    </div>
+  </div>
+
+  <div class="panel" id="p-store">
+    <div class="card">
+      <h2>📍 附近门店</h2>
+      <div id="map"></div>
+      <div class="store-list" id="storeList"></div>
+    </div>
   </div>
 
   <div class="footer">
-    <a href="dashboard.html">📊 查看订阅统计后台</a> · 本项目为参赛作品，非麦当劳官方产品<br>
-    餐品信息、价格及供应状态以麦当劳官方渠道实时结果为准
+    <a href="dashboard.html">📊 订阅统计后台</a> · 本项目为参赛作品，非麦当劳官方产品<br>
+    餐品信息、价格及供应状态以麦当劳官方渠道实时结果为准 · 开发者邮箱 931225409@qq.com
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- 活动数据（内联） -->
-<script type="application/json" id="campaigns-data">[{"id": "camp_超值𝟗𝟗元早餐两件套陪你开工啦", "title": "超值𝟗.𝟗元早餐两件套陪你开工啦😋", "start_date": "2026-10-08", "end_date": "2026-10-21", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-MCF/", "description": "早八的快乐，一堡一咖已就位🍔☕ 𝟏𝟎月𝟖日至𝟏𝟎月𝟐𝟏日 🍔周一至周五早餐堡轮流上早班 🤩今天这堡 明天那堡 ☕鲜萃咖啡搭档到位 凭券两件套只要9.9元 速戳👇快定好闹钟一起来吃", "rolling": false}, {"id": "camp_韩式风味蘸酱上新就酱心有所薯", "title": "韩式风味蘸酱上新❤️就「酱」心有所「薯」", "start_date": "2026-10-08", "end_date": "2026-10-08", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/", "description": "🆕韩式辣椒黄油风味酱 韩式辣酱碰撞青梅，裹挟黄油香气 鸡薯双全盒仅需15.9元起✨getGD同款花式比心 🆕韩式烟熏芝士风味酱 浓郁芝香邂逅韩式香辛风味，烟熏香气层层释放 蘸酱炸鸡仅需11.9元起🍗 炸鸡薯饼蘸酱我全都喜欢！ 10月8日 10:30起正式开售⏰", "rolling": false}, {"id": "camp_麦当劳xpeaceminusone", "title": "麦当劳 X PEACEMINUSONE", "start_date": "2026-10-08", "end_date": "2026-10-08", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/", "description": "GD同款联名复古棒球帽 任意餐品消费加39.9元即可得 经典红黄配色搭配复古轮廓，MV同款灵感重现 更有标志性小雏菊刺绣图案点缀 10月8日10:45开售 更有APP专享积分抢先购10:40开抢 与GD一起探索潮流新篇章🖤", "rolling": false}, {"id": "camp_麦当劳联动gdragon", "title": "麦当劳联动G-DRAGON", "start_date": "2026-10-08", "end_date": "2026-10-08", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/", "description": "带来韩式风味系列新品❗️ 龙焰鸡腿堡三件套 26.9 元起即刻开吃🍔 韩式辣酱搭配酥脆多汁鸡腿排🤤 还可升级29.9元龙焰芝士棒鸡腿堡三件套， 两根马苏里拉拉丝芝士条，热时双倍拉丝更过瘾🧀 10月8日 10:30 准时开售⏰You lovin' it？", "rolling": false}, {"id": "camp_一口爆汁蓝莓爆爆珠麦旋风上新", "title": "🫐一口爆汁！蓝莓爆爆珠麦旋风上新", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/", "description": "🫐蓝莓爆爆珠麦旋风上新！ 💜清甜蓝莓碰上醇厚奶香，酸甜清爽。 💥真实蓝莓原浆x爆爆珠，颗颗爆汁好惊喜。 😋绵密冰淇淋撞上弹爽口感，莓好滋味层层爆开！ 还在等什么，马上尝新~", "rolling": false}, {"id": "camp_早餐爆款回归快来pick你的厚松饼堡", "title": "早餐爆款回归，快来pick你的厚松饼堡！📣", "start_date": "2026-10-08", "end_date": "2026-10-08", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-breakfast/", "description": "返工别紧张，厚松饼堡让你松软一下🫵 🥞甜甜松饼，软软口感 🍁经典枫糖风味和浓郁巧克力味两款可选🍫 10月8日起，指定套餐可享早餐卡6折优惠 3件套到手只要15元起，快来优惠吃", "rolling": false}, {"id": "camp_麦咖啡139r浓浓黑巧来啦", "title": "🍫麦咖啡13.9r浓浓黑巧来啦！", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-MCF/", "description": "地道浓醇黑巧，风味浓郁醇厚 200目精细研磨工艺，触感丝滑如绒 戳下方，速来解锁！", "rolling": false}, {"id": "camp_麦咖啡一早现磨元气早餐震撼来袭", "title": "麦咖啡一早现磨🥳元气早餐震撼来袭！", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/", "description": "☕甄选 2024IIAC 国际咖啡品鉴大赛“金奖“咖啡豆 🥪多款人气早餐主食随心挑选，满足你的多种需求 ✨清晨能量一键配齐，14.9元起，开启你的元气一天", "rolling": false}, {"id": "camp_灰白撞色灰焰圆筒酷爽登场", "title": "🩶灰白撞色，灰焰圆筒酷爽登场", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/", "description": "🩶灰焰圆筒酷爽上新！ 🍦浓郁香草味碰上酷灰脆筒，灰白撞色吸睛。 ✨入口绵密丝滑，一口咬下筒壳咔嚓酥脆。 😋绵密与香脆层层交织，一口解锁甜酷反差！ 还在等什么，马上尝新~", "rolling": false}, {"id": "camp_学生专属49元150天麦金学期卡", "title": "学生专属！49元150天麦金学期卡💳", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/", "description": "💰仅0.33元/天，到手150天吃麦特权！ 5️⃣折起吃超值四件套、6折吃早餐 🛵每日两次满额免配，9.9元麦咖啡 🦉开卡还送多邻国月卡，美味和学习一步到位 👛新学期钱包不吃紧，开心吃麦快乐学习！", "rolling": false}, {"id": "camp_过家家派对上线快来一起解锁梦想职业", "title": "过家家派对上线，快来一起解锁梦想职业", "start_date": "2026-09-09", "end_date": "2026-09-09", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20260909-HM/", "description": "过家家派对就要开始啦! 萌娃cosplay梦想职业，精美职业服带回家 DIY 创意手工，想象力在指尖自由绽放 9月9日到店解锁过家家派对 粉红姐姐带你玩转麦当劳，开启童趣一天~", "rolling": false}, {"id": "camp_韩风刮到了四件套龙焰鸡腿堡来袭", "title": "“韩”风刮到了四件套~龙焰鸡腿堡来袭！", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/", "description": "🍔麦金卡点「龙焰鸡腿堡」四件套29元起 🍗韩式辣酱碰撞青梅黄油，爆脆鸡腿排多汁裹酱！ ✨一张麦金卡包揽全天吃麦特权 6折早餐、9.9元麦咖啡、满额免配统统安排 😋快来打卡美味，这场韩式盛宴等你加入！", "rolling": false}, {"id": "camp_乐享90分钟高质量亲子时间", "title": "乐享90分钟高质量亲子时间", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/news_list", "description": "打造高质量陪伴时光🎊 9本热门书籍且每月更新！ 更有开心乐园餐+随机玩具一份🎁 好吃又好玩！快报名参加吧~", "rolling": false}, {"id": "camp_快来一起参加麦麦派对吧", "title": "快来一起参加麦麦派对吧！", "start_date": "2026-10-12", "end_date": "2026-10-12", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/", "description": "遛娃好去处🎉麦当劳趣读派对！ 6大环节，趣味互动✨ 好吃又好玩，快乐持续加倍！ 👇一起领取“读书小达人“证书吧~", "rolling": false}, {"id": "camp_第三周周边即将开售限定主题丝巾", "title": "第三周周边即将开售✨限定主题丝巾！", "start_date": "2026-10-22", "end_date": "2026-10-22", "type": "营销活动", "category": "活动", "region": "全国", "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/", "description": "丝巾搭配棒球帽的潮流谁懂😎 麦当劳「我就喜欢」限定丝巾 任意餐品消费加 39.9 元即可得 颈间、包袋、手腕、头饰一巾多玩🤔 叠搭联名棒球帽&徽章随心玩出专属潮流造型✨ 10月22日10:45开售 更有APP专享积分抢先购10:40开抢 get时尚icon同款潮流造型", "rolling": false}]</script>
-
-<!-- 门店数据（内联） -->
-<script type="application/json" id="stores-data">[{"id":"store_001","name":"麦当劳（中关村店）","address":"北京市海淀区中关村大街 27 号","lat":39.984104,"lng":116.307503,"distance":"距你 0.8 km","open_hours":"07:00-22:00"},{"id":"store_002","name":"麦当劳（五道口店）","address":"北京市海淀区成府路 35 号","lat":39.992996,"lng":116.337807,"distance":"距你 1.9 km","open_hours":"24 小时营业"},{"id":"store_003","name":"麦当劳（苏州街店）","address":"北京市海淀区苏州街 20 号","lat":39.975372,"lng":116.302704,"distance":"距你 2.4 km","open_hours":"07:00-23:00"},{"id":"store_004","name":"麦当劳（人民大学店）","address":"北京市海淀区中关村大街 59 号","lat":39.969844,"lng":116.31838,"distance":"距你 3.1 km","open_hours":"07:00-22:00"}]</script>
-
-<!-- 腾讯地图 SDK（合规代理模式，无需 key） -->
 <script>
   window._TMapSecurityConfig = {
     serviceHost: 'http://127.0.0.1:__WB_HTTP_PORT__/_TMapService/_wbt/__WB_TMAP_SECRET__',
   };
 </script>
 <script src="https://map.qq.com/api/gljs?v=1.exp"></script>
-
-<!-- 云服务 SDK（埋点） -->
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
 
 <script>
 (function () {
   'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var DATA = null;
 
-  /* ---------- 云服务初始化 ---------- */
+  function toast(msg) { var t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(function () { t.classList.remove('show'); }, 2200); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function normUrl(u) {
+    if (!u) return 'https://www.mcdonalds.com.cn/';
+    u = String(u).trim();
+    if (u.indexOf('http') !== 0) return 'https://www.mcdonalds.com.cn/';
+    if (u.indexOf('://mcdonalds.com.cn') !== -1 && u.indexOf('://www.mcdonalds.com.cn') === -1) u = u.replace('://mcdonalds.com.cn', '://www.mcdonalds.com.cn');
+    return u;
+  }
+
+  function basePath() { try { return location.origin + location.pathname.replace(/[^\/]*$/, ''); } catch (e) { return ''; } }
+  function icsUrl(name) { return basePath() + 'assets/' + name; }
+
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('active'); });
+      document.querySelectorAll('.panel').forEach(function (x) { x.classList.remove('active'); });
+      t.classList.add('active');
+      $(t.dataset.panel).classList.add('active');
+    });
+  });
+
   var cloud = null;
   try {
     cloud = WorkBuddyCloud.createWorkBuddyCloud({
@@ -201,179 +254,164 @@
       oauthRelayBaseUrl: 'https://www.workbuddy.cn/v2/as/genie-baas/oauth',
       publishableKey: 'wbpk_wpdpshm5Z7b5ofnGt1XXZ4_5b3wRitejgMSKR2YVfEvuPbwjqrwkLdQ'
     });
-  } catch (e) {
-    console.warn('cloud init failed', e);
-  }
+  } catch (e) { console.warn('cloud init failed', e); }
 
-  /* ---------- 工具 ---------- */
-  function $(id) { return document.getElementById(id); }
-  function toast(msg) {
-    var t = $('toast'); t.textContent = msg; t.classList.add('show');
-    setTimeout(function () { t.classList.remove('show'); }, 2200);
-  }
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-
-  /* 订阅地址：跟随当前部署目录，不硬编码 */
-  var ICS_URL = (function () {
-    try { return location.origin + location.pathname.replace(/[^\/]*$/, '') + 'assets/calendar.ics'; }
-    catch (e) { return 'assets/calendar.ics'; }
-  })();
-
-  /* ---------- 埋点 ---------- */
-  function genCode() {
-    return 'mcd-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
-  }
+  function genCode() { return 'mcd-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8); }
   var myCode = null;
-
   function claimCode() {
-    var code = genCode();
-    myCode = code;
-    var ua = navigator.userAgent.slice(0, 200);
-    if (cloud) {
-      cloud.database.from('subscriptions').insert({ code: code, user_agent: ua, source: 'web' })
-        .then(function () {})
-        .catch(function (e) { console.warn('claim log failed', e); });
-    }
-    $('codeShow').textContent = code;
-    $('subUrl').textContent = ICS_URL + '?code=' + code;
-    $('codeBox').style.display = 'block';
-    $('btnCopy').disabled = false;
+    var code = genCode(); myCode = code;
+    if (cloud) cloud.database.from('subscriptions').insert({ code: code, user_agent: navigator.userAgent.slice(0, 200), source: 'web' }).then(function(){}).catch(function(){});
     toast('订阅码已生成 🎉');
   }
-
-  function copySub() {
-    var url = $('subUrl').textContent;
-    var done = function () {
-      if (cloud && myCode) {
-        cloud.database.from('pulls').insert({ code: myCode, user_agent: navigator.userAgent.slice(0, 200) })
-          .then(function () {}).catch(function (e) { console.warn('pull log failed', e); });
-      }
-      toast('订阅地址已复制，去日历里粘贴即可 ✅');
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url, done); });
-    } else {
-      fallbackCopy(url, done);
-    }
+  function copyText(text, label) {
+    var done = function () { if (cloud && myCode) cloud.database.from('pulls').insert({ code: myCode, user_agent: navigator.userAgent.slice(0,200) }).then(function(){}).catch(function(){}); toast(label + '地址已复制 ✅'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+    else fallbackCopy(text, done);
   }
-  function fallbackCopy(text, cb) {
-    var ta = document.createElement('textarea');
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); } catch (e) {}
-    document.body.removeChild(ta); cb();
-  }
-
-  /* 麦当劳官网只有带 www 的域名可达；裸域名 mcdonalds.com.cn 无法解析会「无法打开网址」。
-     这里统一纠正领券链接：裸域名→www；/news/ 推文页保留；其他无意义子路径回首页。 */
-  var MCD_HOME = 'https://www.mcdonalds.com.cn/';
-  function normalizeUrl(u) {
-    if (!u) return MCD_HOME;
-    u = String(u).trim();
-    if (u.indexOf('://') === -1) u = 'https://' + u;
-    if (u.indexOf('://mcdonalds.com.cn') !== -1 && u.indexOf('://www.mcdonalds.com.cn') === -1) {
-      u = u.replace('://mcdonalds.com.cn', '://www.mcdonalds.com.cn');
-    }
-    if (u.indexOf('://www.mcdonalds.com.cn') === -1) return MCD_HOME;
-    if (u.indexOf('/news/') !== -1) return u;   // 官方推文页，保留
-    if (u.replace(/\/+$/, '') !== 'https://www.mcdonalds.com.cn') u = MCD_HOME;
-    return u;
-  }
-
-  function trackClick(campaignId, link) {
-    if (cloud) {
-      cloud.database.from('clicks').insert({ code: myCode || null, campaign_id: campaignId })
-        .then(function () {}).catch(function (e) { console.warn('click log failed', e); });
-    }
-    var target = normalizeUrl(link);
-    toast('正在打开麦当劳官网…');
-    // 直接跳转（location.href 比 window.open 更稳，不会被弹窗拦截）
-    setTimeout(function () { window.location.href = target; }, 120);
-  }
-
+  function fallbackCopy(text, cb) { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch(e){} document.body.removeChild(ta); cb(); }
   function goApp(target) {
-    if (cloud) {
-      cloud.database.from('redirects').insert({ code: myCode || null, target: target })
-        .then(function () {}).catch(function (e) { console.warn('redirect log failed', e); });
-    }
-    // 统一跳转到麦当劳官网（真实可访问），APP/小程序由官网引导下载或唤起
+    if (cloud) cloud.database.from('redirects').insert({ code: myCode || null, target: target }).then(function(){}).catch(function(){});
     window.location.href = 'https://www.mcdonalds.com.cn/';
   }
+  function trackClick(campaignId, link) {
+    if (cloud) cloud.database.from('clicks').insert({ code: myCode || null, campaign_id: campaignId }).then(function(){}).catch(function(){});
+    var t = normUrl(link); toast('正在打开…'); setTimeout(function(){ window.location.href = t; }, 120);
+  }
 
-  /* ---------- 渲染活动 ---------- */
-  function renderEvents() {
-    var data = JSON.parse($('campaigns-data').textContent || '[]');
-    $('eventCount').textContent = data.length;
+  function renderCampaigns() {
+    var list = (DATA && DATA.campaigns) || [];
+    $('eventCount').textContent = list.length;
     var box = $('eventList');
-    if (!data.length) { box.innerHTML = '<div class="tip">暂无活动数据</div>'; return; }
+    if (!list.length) { box.innerHTML = '<div class="tip">暂无活动数据</div>'; return; }
     var html = '';
-    data.forEach(function (a) {
+    list.forEach(function (a) {
       var span = a.start_date + (a.end_date && a.end_date !== a.start_date ? ' 至 ' + a.end_date : '');
-      html += '<div class="event">'
+      html += '<div class="item">'
         + '<div class="title">' + esc(a.title)
         + '<span class="badge">' + esc(a.type || '活动') + '</span>'
         + '<span class="badge blue">' + esc(a.region || '全国') + '</span></div>'
         + '<div class="meta">🗓 ' + esc(span) + '</div>'
-        + '<div class="desc">' + esc(a.description || '') + '</div>'
+        + (a.image ? '<img src="' + esc(a.image) + '" style="width:100%;max-width:320px;border-radius:8px;margin:6px 0;" alt="">' : '')
+        + (a.highlights ? '<div class="desc">' + esc(a.highlights) + '</div>' : '')
         + '<div class="actions">'
-        + '<button class="btn small" onclick="trackClick(\'' + a.id + '\',\'' + esc(a.coupon_link || '') + '\')">🎟️ 领取优惠券</button>'
+        + '<button class="btn small" onclick="trackClick(\'' + esc(a.id) + '\',\'' + esc(a.coupon_link || '') + '\')">🎟️ 领取/查看</button>'
         + '</div></div>';
     });
     box.innerHTML = html;
   }
 
-  /* ---------- 渲染门店 + 地图 ---------- */
+  function renderCollectibles() {
+    var prods = (DATA && DATA.products) || [];
+    var cats = { '玩具': '开心乐园餐玩具', '鞋袜': 'IP 联名与限量周边' };
+    var items = prods.filter(function (p) { return p.category === '玩具' || p.category === '鞋袜'; });
+    $('collCount').textContent = items.length;
+    var box = $('collectGrid');
+    if (!items.length) { box.innerHTML = '<div class="tip">暂无在售收藏品</div>'; return; }
+    var html = '';
+    items.forEach(function (p) {
+      html += '<div class="prod">'
+        + (p.image ? '<img src="' + esc(p.image) + '" loading="lazy" alt="">' : '')
+        + '<div class="pbody"><div class="pname">' + esc(p.name) + '</div>'
+        + '<div class="ppoint">' + (p.point && p.point !== '0' ? esc(p.point) + ' 积分' : (p.price ? esc(p.price) + ' 元' : '')) + '</div>'
+        + '<div class="pcat">' + esc(cats[p.category] || p.category) + '</div></div></div>';
+    });
+    box.innerHTML = html;
+  }
+
+  function renderCoupons() {
+    var list = (DATA && DATA.coupons) || [];
+    $('couponCount').textContent = list.length;
+    var box = $('couponList');
+    if (!list.length) { box.innerHTML = '<div class="tip">暂无可领优惠券</div>'; return; }
+    var html = '';
+    list.forEach(function (c) {
+      html += '<div class="item"><div class="title">' + esc(c.name)
+        + '<span class="badge ' + (c.status === 'HAVING_RECEIVE' ? 'green' : '') + '">' + esc(c.label || c.status || '可领') + '</span></div>'
+        + (c.image ? '<img src="' + esc(c.image) + '" style="height:64px;border-radius:8px;margin:6px 0;" alt="">' : '')
+        + '</div>';
+    });
+    box.innerHTML = html;
+  }
+
+  function renderAccount() {
+    var acc = (DATA && DATA.account) || {};
+    if (!acc.availablePoint && !acc.accountId) { $('accountStat').innerHTML = '<div class="tip">积分余额为个人隐私数据，需在 WorkBuddy 中配置本人 MCP Token 后查询（不对外公开）。</div>'; return; }
+    var html = '';
+    var items = [
+      ['availablePoint', '可用积分'], ['accumulativePoint', '累计积分'], ['currentMouthExpirePoint', '本月到期'],
+      ['nextMouthExpirePoint', '下月到期'], ['usedPoint', '已用积分']
+    ];
+    items.forEach(function (k) { if (acc[k[0]] != null) html += '<div class="box"><div class="num">' + esc(acc[k[0]]) + '</div><div class="lbl">' + k[1] + '</div></div>'; });
+    $('accountStat').innerHTML = html || '<div class="tip">暂无积分数据</div>';
+  }
+
+  function renderBenefits() {
+    var prods = (DATA && DATA.products) || [];
+    var items = prods.filter(function (p) {
+      var pt = parseFloat(p.point || '0');
+      return pt > 0 && ['生日类派对','主题类派对','读书会','品鉴会'].indexOf(p.category) === -1;
+    });
+    $('benefitCount').textContent = items.length;
+    var box = $('benefitGrid');
+    if (!items.length) { box.innerHTML = '<div class="tip">暂无积分兑换商品</div>'; return; }
+    var html = '';
+    items.slice(0, 24).forEach(function (p) {
+      html += '<div class="prod">'
+        + (p.image ? '<img src="' + esc(p.image) + '" loading="lazy" alt="">' : '')
+        + '<div class="pbody"><div class="pname">' + esc(p.name) + '</div>'
+        + '<div class="ppoint">' + esc(p.point) + ' 积分</div>'
+        + '<div class="pcat">' + esc(p.down_time ? p.down_time.slice(0,10) + ' 截止' : '') + '</div></div></div>';
+    });
+    box.innerHTML = html;
+  }
+
+  function renderLottery() {
+    var lt = (DATA && DATA.lottery) || {};
+    if (!lt.activityName) { $('lotteryInfo').innerHTML = '<div class="tip">抽奖活动与个人奖品为个人数据，需在 WorkBuddy 中配置本人 MCP Token 后查询与参与（不对外公开）。</div>'; return; }
+    var prizes = (lt.prizes || []).map(function (p) { return esc(p.name); }).join('、');
+    var html = '<div class="title">' + esc(lt.activityName) + ' <span class="badge green">' + esc(lt.activityStatusText || '') + '</span></div>'
+      + '<div class="meta">🗓 ' + esc(lt.beginTime || '') + ' ~ ' + esc(lt.endTime || '') + '</div>'
+      + '<div class="stat">'
+      + '<div class="box"><div class="num">' + esc(lt.drawPoint || '-') + '</div><div class="lbl">单次消耗积分</div></div>'
+      + '<div class="box"><div class="num">' + esc(lt.availablePoint || '-') + '</div><div class="lbl">可用积分</div></div>'
+      + '</div>'
+      + (prizes ? '<div class="tip">奖品：' + prizes + '</div>' : '')
+      + '<div class="muted-note">抽奖会消耗积分，需个人授权后在 WorkBuddy 中确认执行。</div>';
+    $('lotteryInfo').innerHTML = html;
+  }
+
   function renderStores() {
-    var stores = JSON.parse($('stores-data').textContent || '[]');
+    var stores = [{ id: 'store_001', name: '麦当劳（中关村店）', address: '北京市海淀区中关村大街 27 号', lat: 39.984104, lng: 116.307503, distance: '距你 0.8 km', open_hours: '07:00-22:00' },
+      { id: 'store_002', name: '麦当劳（五道口店）', address: '北京市海淀区成府路 35 号', lat: 39.992996, lng: 116.337807, distance: '距你 1.9 km', open_hours: '24 小时营业' },
+      { id: 'store_003', name: '麦当劳（苏州街店）', address: '北京市海淀区苏州街 20 号', lat: 39.975372, lng: 116.302704, distance: '距你 2.4 km', open_hours: '07:00-23:00' },
+      { id: 'store_004', name: '麦当劳（人民大学店）', address: '北京市海淀区中关村大街 59 号', lat: 39.969844, lng: 116.31838, distance: '距你 3.1 km', open_hours: '07:00-22:00' }];
     var list = $('storeList');
     var html = '';
     stores.forEach(function (s) {
-      html += '<div class="store"><span class="dot"></span>'
-        + '<div><div class="nm">' + esc(s.name) + ' · ' + esc(s.distance || '') + '</div>'
-        + '<div class="ad">' + esc(s.address || '') + (s.open_hours ? ' · ' + esc(s.open_hours) : '') + '</div></div></div>';
+      html += '<div class="store"><span class="dot"></span><div><div class="nm">' + esc(s.name) + ' · ' + esc(s.distance) + '</div>'
+        + '<div class="ad">' + esc(s.address) + ' · ' + esc(s.open_hours) + '</div></div></div>';
     });
     list.innerHTML = html;
     locateAndInitMap(stores);
   }
 
-  // 第一时间获取用户位置，地图以用户为中心；定位失败才回退到门店中心
   function locateAndInitMap(stores) {
     var mapEl = $('map');
-    if (typeof TMap === 'undefined' || !stores.length) {
-      mapEl.innerHTML = '<div class="tip">地图加载中或暂无门店数据…</div>';
-      return;
-    }
-    // 定位状态提示条（定位中 / 已定位 / 定位失败可重试）
-    var statusEl = document.createElement('div');
-    statusEl.className = 'tip';
-    statusEl.id = 'locateStatus';
-    statusEl.style.marginBottom = '8px';
+    if (typeof TMap === 'undefined' || !stores.length) { mapEl.innerHTML = '<div class="tip">地图加载中…</div>'; return; }
+    var statusEl = document.createElement('div'); statusEl.className = 'tip'; statusEl.id = 'locateStatus'; statusEl.style.marginBottom = '8px';
     mapEl.parentNode.insertBefore(statusEl, mapEl);
-
-    function setStatus(html) { if ($('locateStatus')) $('locateStatus').innerHTML = html; }
-    setStatus('📍 正在获取你的位置，地图将以你为中心…');
-
+    function setStatus(h) { if ($('locateStatus')) $('locateStatus').innerHTML = h; }
+    setStatus('📍 正在获取你的位置…');
     function tryLocate() {
-      if (!navigator.geolocation) {
-        setStatus('⚠️ 当前浏览器不支持定位，已显示默认门店');
-        initMap(stores, null);
-        return;
-      }
-      setStatus('📍 正在获取你的位置，地图将以你为中心…');
+      if (!navigator.geolocation) { setStatus('⚠️ 浏览器不支持定位，显示默认门店'); initMap(stores, null); return; }
+      setStatus('📍 正在获取你的位置…');
       navigator.geolocation.getCurrentPosition(
-        function (pos) {
-          setStatus('✅ 已定位到你的位置（蓝色圆点），门店已按距离排序');
-          initMap(stores, { lat: pos.coords.latitude, lng: pos.coords.longitude });
-        },
+        function (pos) { setStatus('✅ 已定位（蓝色圆点），门店已按距离排序'); initMap(stores, { lat: pos.coords.latitude, lng: pos.coords.longitude }); },
         function (err) {
-          var msg = '⚠️ 定位未授权或失败，已按默认门店显示';
-          if (err && err.code === 1) msg = '⚠️ 定位被拒绝，点击 <a href="javascript:;" onclick="retryLocate()" style="color:#1A66D8">重新定位</a> 授权';
-          else if (err && err.code === 3) msg = '⚠️ 定位超时，点击 <a href="javascript:;" onclick="retryLocate()" style="color:#1A66D8">重试</a>';
-          setStatus(msg);
-          initMap(stores, null);
+          var msg = '⚠️ 定位未授权或失败，显示默认门店';
+          if (err && err.code === 1) msg = '⚠️ 定位被拒绝，点击 <a href="javascript:;" onclick="window.retryLocate()" style="color:#1A66D8">重新定位</a> 授权';
+          else if (err && err.code === 3) msg = '⚠️ 定位超时，点击 <a href="javascript:;" onclick="window.retryLocate()" style="color:#1A66D8">重试</a>';
+          setStatus(msg); initMap(stores, null);
         },
         { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 }
       );
@@ -383,74 +421,40 @@
   }
 
   function initMap(stores, userPos) {
-    // 用户位置优先作地图中心，并按距离重排门店
     var center, userLoc = null;
-    if (userPos) {
-      userLoc = { lat: userPos.lat, lng: userPos.lng };
-      center = new TMap.LatLng(userPos.lat, userPos.lng);
-      var _sorted = stores.slice().sort(function (a, b) {
-        return dist(userLoc, a) - dist(userLoc, b);
-      });
-      stores = _sorted;
-    } else {
-      center = new TMap.LatLng(stores[0].lat, stores[0].lng);
-    }
+    function dist(p, s) { var dx = (s.lat - p.lat) * 111.0; var dy = (s.lng - p.lng) * 111.0 * Math.cos(p.lat * Math.PI / 180); return Math.sqrt(dx * dx + dy * dy); }
+    if (userPos) { userLoc = { lat: userPos.lat, lng: userPos.lng }; center = new TMap.LatLng(userPos.lat, userPos.lng); stores = stores.slice().sort(function (a, b) { return dist(userLoc, a) - dist(userLoc, b); }); }
+    else center = new TMap.LatLng(stores[0].lat, stores[0].lng);
     var map = new TMap.Map('map', { zoom: 13, center: center });
-
-    function dist(p, s) {
-      var dx = (s.lat - p.lat) * 111.0;
-      var dy = (s.lng - p.lng) * 111.0 * Math.cos(p.lat * Math.PI / 180);
-      return Math.sqrt(dx * dx + dy * dy);
-    }
-
-    // 自定义 marker 图标（内联 SVG，不引用官方 demo 图片）
-    var pin = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="38">'
-      + '<path d="M15 0C6.7 0 0 6.7 0 15c0 11.3 15 23 15 23s15-11.7 15-23C30 6.7 23.3 0 15 0z" fill="#DA291C"/>'
-      + '<circle cx="15" cy="14" r="6" fill="#FFC72C"/></svg>'
-    );
-    var geometries = stores.map(function (s, i) {
-      return { id: s.id, styleId: 'default', position: new TMap.LatLng(s.lat, s.lng) };
-    });
-    // 用户当前位置：蓝色圆点标记（内联 SVG）
-    var meIcon = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">'
-      + '<circle cx="10" cy="10" r="8" fill="#1A66D8" stroke="#fff" stroke-width="2"/>'
-      + '<circle cx="10" cy="10" r="3" fill="#fff"/></svg>'
-    );
-    if (userLoc) {
-      geometries.push({ id: '__me__', styleId: 'me', position: new TMap.LatLng(userLoc.lat, userLoc.lng) });
-    }
-    var markerLayer = new TMap.MultiMarker({
-      map: map,
-      styles: {
-        default: new TMap.MarkerStyle({ width: 30, height: 38, anchor: { x: 15, y: 38 } }),
-        me: new TMap.MarkerStyle({ width: 20, height: 20, anchor: { x: 10, y: 10 }, src: meIcon })
-      },
-      geometries: geometries
-    });
+    var pin = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="30" height="38"><path d="M15 0C6.7 0 0 6.7 0 15c0 11.3 15 23 15 23s15-11.7 15-23C30 6.7 23.3 0 15 0z" fill="#DA291C"/><circle cx="15" cy="14" r="6" fill="#FFC72C"/></svg>');
+    var meIcon = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="#1A66D8" stroke="#fff" stroke-width="2"/><circle cx="10" cy="10" r="3" fill="#fff"/></svg>');
+    var geometries = stores.map(function (s, i) { return { id: s.id, styleId: 'default', position: new TMap.LatLng(s.lat, s.lng) }; });
+    if (userLoc) geometries.push({ id: '__me__', styleId: 'me', position: new TMap.LatLng(userLoc.lat, userLoc.lng) });
+    var markerLayer = new TMap.MultiMarker({ map: map, styles: { default: new TMap.MarkerStyle({ width: 30, height: 38, anchor: { x: 15, y: 38 } }), me: new TMap.MarkerStyle({ width: 20, height: 20, anchor: { x: 10, y: 10 }, src: meIcon }) }, geometries: geometries });
     var infoWin = new TMap.InfoWindow({ map: map, position: new TMap.LatLng(0, 0), offset: { x: 0, y: -40 } });
     markerLayer.on('click', function (e) {
-      if (e.geometry.id === '__me__') return;   // 用户位置点不弹信息窗
-      var s = stores.filter(function (x) { return x.id === e.geometry.id; })[0];
-      if (!s) return;
-      infoWin.setPosition(e.geometry.position);
-      infoWin.setContent('<div style="padding:4px;font-size:13px;line-height:1.5"><b>' + esc(s.name) + '</b><br>'
-        + esc(s.address || '') + '</div>');
-      infoWin.open();
+      if (e.geometry.id === '__me__') return;
+      var s = stores.filter(function (x) { return x.id === e.geometry.id; })[0]; if (!s) return;
+      infoWin.setPosition(e.geometry.position); infoWin.setContent('<div style="padding:4px;font-size:13px;line-height:1.5"><b>' + esc(s.name) + '</b><br>' + esc(s.address) + '</div>'); infoWin.open();
     });
   }
 
-  /* ---------- 启动 ---------- */
-  window.claimCode = claimCode;
-  window.copySub = copySub;
-  window.trackClick = trackClick;
-  window.goApp = goApp;
+  window.claimCode = claimCode; window.copyText = copyText; window.goApp = goApp; window.trackClick = trackClick;
 
-  document.addEventListener('DOMContentLoaded', function () {
-    renderEvents();
+  function init() {
+    $('icsCampaign').textContent = icsUrl('calendar.ics');
+    $('icsCollect').textContent = icsUrl('calendar-collectibles.ics');
+    $('icsBenefit').textContent = icsUrl('calendar-benefits.ics');
+    fetch('data/summary.json').then(function (r) { return r.json(); }).then(function (d) {
+      DATA = d;
+      renderCampaigns(); renderCollectibles(); renderCoupons(); renderAccount(); renderBenefits(); renderLottery();
+    }).catch(function (e) {
+      console.warn('加载数据失败', e);
+      $('eventList').innerHTML = '<div class="tip">数据加载失败</div>';
+    });
     renderStores();
-  });
+  }
+  document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
 </body>

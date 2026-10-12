@@ -11,6 +11,11 @@ node_modules/
 *.token
 mcp-config.json
 
+# 个人权益数据（绝不进公开仓库，PRD 隐私要求）
+data/my_account.json
+data/my_coupons.json
+data/lottery.json
+
 # WorkBuddy 本地元数据
 .workbuddy/
 .wbapp_*.genie

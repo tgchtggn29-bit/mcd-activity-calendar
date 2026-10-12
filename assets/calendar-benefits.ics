@@ -1,0 +1,158 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//McCalendar//McD CN Benefits & Collectibles//CN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:麦麦权益日历
+X-WR-TIMEZONE:Asia/Shanghai
+X-WR-CALDESC:麦当劳积分兑换/权益到期 · 截止前一天提醒
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:benefit-prod_17077@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:10.9元指定小食任选 · 兑换截止
+DESCRIPTION:【积分兑换】10.9元指定小食任选\n可兑换：2026
+ -06-25 至 2026-12-30\n所需积分：200\n价格：0 元\n说明：10.9
+ 元指定小食任选1份\n图片：https://img.mcd.cn/ecs/72a21fa0f800c
+ 4d7.jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：10.9元指定小食任
+ 选 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:VAL
+ ARM
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17079@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:16.9元麦辣可乐组合 · 兑换截止
+DESCRIPTION:【积分兑换】16.9元麦辣可乐组合\n可兑换：2026
+ -06-25 至 2026-12-30\n所需积分：500\n价格：0 元\n说明：16.9
+ 元麦辣可乐组合\n图片：https://img.mcd.cn/ecs/20c9867018af833a.
+ jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：16.9元麦辣可乐组
+ 合 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:VAL
+ ARM
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17081@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:21.9元巨无霸可乐组合 · 兑换截止
+DESCRIPTION:【积分兑换】21.9元巨无霸可乐组合\n可兑换：2
+ 026-06-25 至 2026-12-30\n所需积分：800\n价格：0 元\n说明：2
+ 1.9元巨无霸可乐组合\n图片：https://img.mcd.cn/ecs/bd4382429dc
+ 7c39c.jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：21.9元巨无霸可乐
+ 组合 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:
+ VALARM
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17074@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:6.9元香芋派/菠萝派任选 · 兑换截止
+DESCRIPTION:【积分兑换】6.9元香芋派/菠萝派任选\n可兑换
+ ：2026-06-25 至 2026-12-30\n所需积分：50\n价格：0 元\n说明
+ ：6.9元香芋派/菠萝派任选1份\n图片：https://img.mcd.cn/ecs/
+ c8e3a03b35f73ede.jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：6.9元香芋派/菠萝
+ 派任选 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+E
+ ND:VALARM
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17073@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:6.9元可乐麦炫酷 · 兑换截止
+DESCRIPTION:【积分兑换】6.9元可乐麦炫酷\n可兑换：2026-06-
+ 25 至 2026-12-30\n所需积分：50\n价格：0 元\n说明：6.9元可
+ 乐麦炫酷1份\n图片：https://img.mcd.cn/ecs/affec854b9474fa2.jpg\n
+ \n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：6.9元可乐麦炫酷 
+ 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:VALARM
+ 
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17076@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:10.9元指定小食任选 · 兑换截止
+DESCRIPTION:【积分兑换】10.9元指定小食任选\n可兑换：2026
+ -06-25 至 2026-12-30\n所需积分：100\n价格：0 元\n说明：10.9
+ 元指定小食任选1份\n图片：https://img.mcd.cn/ecs/acd57835928c0
+ f6f.jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：10.9元指定小食任
+ 选 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:VAL
+ ARM
+
+END:VEVENT
+BEGIN:VEVENT
+UID:benefit-prod_17080@mccalendar
+DTSTAMP:20261012T142704Z
+DTSTART;VALUE=DATE:20260625
+DTEND;VALUE=DATE:20261231
+SUMMARY:17.9元板烧可乐组合 · 兑换截止
+DESCRIPTION:【积分兑换】17.9元板烧可乐组合\n可兑换：2026
+ -06-25 至 2026-12-30\n所需积分：500\n价格：0 元\n说明：17.9
+ 元板烧可乐组合\n图片：https://img.mcd.cn/ecs/08b655d1f4d3d639.
+ jpg\n\n来源：麦当劳 MCP · 积分商城
+CATEGORIES:积分权益
+URL:https://www.mcdonalds.com.cn/news/news_list
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:提醒：17.9元板烧可乐组
+ 合 即将截止兑换
+TRIGGER;VALUE=DATE-TIME:20261229T090000
+END:VAL
+ ARM
+
+END:VEVENT
+END:VCALENDAR
