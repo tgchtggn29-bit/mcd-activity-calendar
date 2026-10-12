@@ -65,7 +65,9 @@ def esc(s):
 
 # 麦当劳官网只有带 www 的域名有 DNS/HTTPS 服务；裸域名 mcdonalds.com.cn 无法解析会「无法打开网址」。
 # 这里统一纠正领券链接，避免日历里出现打不开的裸域名地址。
+# /news/... 推文页是真实活动页，保留；其他无意义子路径统一回首页。
 MCD_HOME = 'https://www.mcdonalds.com.cn/'
+MCD_NEWS_LIST = 'https://www.mcdonalds.com.cn/news/news_list'
 def normalize_coupon_url(u):
     if not u:
         return MCD_HOME
@@ -75,8 +77,13 @@ def normalize_coupon_url(u):
     # 裸域名 / 无 www 前缀 → 纠正为 www 官方可达域名
     if '://mcdonalds.com.cn' in u and '://www.mcdonalds.com.cn' not in u:
         u = u.replace('://mcdonalds.com.cn', '://www.mcdonalds.com.cn')
-    # member-day 等子路径实际会 302 回首页，统一落到官方首页确保可达
-    if '://www.mcdonalds.com.cn' in u and u.rstrip('/') != 'https://www.mcdonalds.com.cn':
+    if '://www.mcdonalds.com.cn' not in u:
+        return MCD_HOME
+    # /news/ 路径是官方推文页，保留
+    if '/news/' in u:
+        return u
+    # 其他子路径（如 /member-day）会 302 回首页，统一落到官方首页确保可达
+    if u.rstrip('/') != 'https://www.mcdonalds.com.cn':
         u = MCD_HOME
     return u
 
