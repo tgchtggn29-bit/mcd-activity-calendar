@@ -11,196 +11,281 @@ X-WR-CALDESC:麦当劳营销活动与优惠券 · 活动上线/截止自
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:camp_202610_member_day-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261001
-DTEND;VALUE=DATE:20261002
-SUMMARY:麦当劳 10 月会员日 · 活动上线
+UID:camp_过家家派对上线快来一起解锁梦想职业@mcd-activity
+ -calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20260909
+DTEND;VALUE=DATE:20260910
+SUMMARY:过家家派对上线，快来一起解锁梦想职业
 LOCATION:全国
-DESCRIPTION:【会员活动】麦当劳 10 月会员日\n时间：2026-10
- -01 至 2026-10-31\n适用地区：全国\n\n会员日专享：每周三
- 会员积分翻倍，指定套餐立减。登录麦当劳 App 领取专
- 属优惠券。\n\n领取优惠券：https://mcdonalds.com.cn/member-day
+DESCRIPTION:【营销活动】过家家派对上线，快来一起解锁
+ 梦想职业\n时间：2026-09-09\n适用地区：全国\n\n过家家派
+ 对就要开始啦! 萌娃cosplay梦想职业，精美职业服带回家
+  DIY 创意手工，想象力在指尖自由绽放 9月9日到店解锁
+ 过家家派对 粉红姐姐带你玩转麦当劳，开启童趣一天~\
+ n\n领取优惠券：https://www.mcdonalds.com.cn/\n\n来源：麦当劳
+  MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_超值𝟗𝟗元早餐两件套陪你开工啦-start@mcd-activi
+ ty-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:超值𝟗.𝟗元早餐两件套陪你开工啦😋 · 活动上
+ 线
+LOCATION:全国
+DESCRIPTION:【营销活动】超值𝟗.𝟗元早餐两件套陪你开
+ 工啦😋\n时间：2026-10-08 至 2026-10-21\n适用地区：全国\n\
+ n早八的快乐，一堡一咖已就位🍔☕ 𝟏𝟎月𝟖日至
+ 𝟏𝟎月𝟐𝟏日 🍔周一至周五早餐堡轮流上早班 🤩
+ 今天这堡 明天那堡 ☕鲜萃咖啡搭档到位 凭券两件套只
+ 要9.9元 速戳👇快定好闹钟一起来吃\n\n领取优惠券：htt
+ ps://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_超值𝟗𝟗元早餐两件套陪你开工啦-end@mcd-activity
+ -calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261021
+DTEND;VALUE=DATE:20261022
+SUMMARY:超值𝟗.𝟗元早餐两件套陪你开工啦😋 · 即将截
+ 止
+LOCATION:全国
+DESCRIPTION:【营销活动】超值𝟗.𝟗元早餐两件套陪你开
+ 工啦😋\n时间：2026-10-08 至 2026-10-21\n适用地区：全国\n\
+ n早八的快乐，一堡一咖已就位🍔☕ 𝟏𝟎月𝟖日至
+ 𝟏𝟎月𝟐𝟏日 🍔周一至周五早餐堡轮流上早班 🤩
+ 今天这堡 明天那堡 ☕鲜萃咖啡搭档到位 凭券两件套只
+ 要9.9元 速戳👇快定好闹钟一起来吃\n\n领取优惠券：htt
+ ps://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_韩式风味蘸酱上新就酱心有所薯@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:韩式风味蘸酱上新❤️就「酱」心有所「薯」
+LOCATION:全国
+DESCRIPTION:【营销活动】韩式风味蘸酱上新❤️就「酱」
+ 心有所「薯」\n时间：2026-10-08\n适用地区：全国\n\n🆕
+ 韩式辣椒黄油风味酱 韩式辣酱碰撞青梅，裹挟黄油香
+ 气 鸡薯双全盒仅需15.9元起✨getGD同款花式比心 🆕韩式
+ 烟熏芝士风味酱 浓郁芝香邂逅韩式香辛风味，烟熏香
+ 气层层释放 蘸酱炸鸡仅需11.9元起🍗 炸鸡薯饼蘸酱我
+ 全都喜欢！ 10月8日 10:30起正式开售⏰\n\n领取优惠券：h
+ ttps://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_麦当劳xpeaceminusone@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:麦当劳 X PEACEMINUSONE
+LOCATION:全国
+DESCRIPTION:【营销活动】麦当劳 X PEACEMINUSONE\n时间：2026-10
+ -08\n适用地区：全国\n\nGD同款联名复古棒球帽 任意餐品
+ 消费加39.9元即可得 经典红黄配色搭配复古轮廓，MV同
+ 款灵感重现 更有标志性小雏菊刺绣图案点缀 10月8日10:4
+ 5开售 更有APP专享积分抢先购10:40开抢 与GD一起探索潮
+ 流新篇章🖤\n\n领取优惠券：https://www.mcdonalds.com.cn/\n\n
+ 来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_麦当劳联动gdragon@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:麦当劳联动G-DRAGON
+LOCATION:全国
+DESCRIPTION:【营销活动】麦当劳联动G-DRAGON\n时间：2026-10-0
+ 8\n适用地区：全国\n\n带来韩式风味系列新品❗️ 龙焰
+ 鸡腿堡三件套 26.9 元起即刻开吃🍔 韩式辣酱搭配酥脆
+ 多汁鸡腿排🤤 还可升级29.9元龙焰芝士棒鸡腿堡三件套
+ ， 两根马苏里拉拉丝芝士条，热时双倍拉丝更过瘾🧀 
+ 10月8日 10:30 准时开售⏰You lovin' it？\n\n领取优惠券：htt
+ ps://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
+END:VEVENT
+BEGIN:VEVENT
+UID:camp_早餐爆款回归快来pick你的厚松饼堡@mcd-activity-cale
+ ndar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261008
+DTEND;VALUE=DATE:20261009
+SUMMARY:早餐爆款回归，快来pick你的厚松饼堡！📣
+LOCATION:全国
+DESCRIPTION:【营销活动】早餐爆款回归，快来pick你的厚松
+ 饼堡！📣\n时间：2026-10-08\n适用地区：全国\n\n返工别
+ 紧张，厚松饼堡让你松软一下🫵 🥞甜甜松饼，软软口
+ 感 🍁经典枫糖风味和浓郁巧克力味两款可选🍫 10月8
+ 日起，指定套餐可享早餐卡6折优惠 3件套到手只要15元
+ 起，快来优惠吃\n\n领取优惠券：https://www.mcdonalds.com.cn/
  \n\n来源：麦当劳 MCP · 活动日历
-CATEGORIES:会员\,全国
-URL:https://mcdonalds.com.cn/member-day
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_member_day-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261031
-DTEND;VALUE=DATE:20261101
-SUMMARY:麦当劳 10 月会员日 · 即将截止
-LOCATION:全国
-DESCRIPTION:【会员活动】麦当劳 10 月会员日\n时间：2026-10
- -01 至 2026-10-31\n适用地区：全国\n\n会员日专享：每周三
- 会员积分翻倍，指定套餐立减。登录麦当劳 App 领取专
- 属优惠券。\n\n领取优惠券：https://mcdonalds.com.cn/member-day
- \n\n来源：麦当劳 MCP · 活动日历
-CATEGORIES:会员\,全国
-URL:https://mcdonalds.com.cn/member-day
-END:VEVENT
-BEGIN:VEVENT
-UID:camp_202610_lottery-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261010
-DTEND;VALUE=DATE:20261011
-SUMMARY:积分抽奖·赢免单 · 活动上线
-LOCATION:全国
-DESCRIPTION:【积分活动】积分抽奖·赢免单\n时间：2026-10-1
- 0 至 2026-10-25\n适用地区：全国\n\n消耗积分参与抽奖，
- 最高赢整单免单券，还有巨无霸兑换券等好礼。\n\n领
- 取优惠券：https://mcdonalds.com.cn/lottery\n\n来源：麦当劳 MC
- P · 活动日历
-CATEGORIES:积分\,全国
-URL:https://mcdonalds.com.cn/lottery
-END:VEVENT
-BEGIN:VEVENT
-UID:camp_202610_lottery-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261025
-DTEND;VALUE=DATE:20261026
-SUMMARY:积分抽奖·赢免单 · 即将截止
-LOCATION:全国
-DESCRIPTION:【积分活动】积分抽奖·赢免单\n时间：2026-10-1
- 0 至 2026-10-25\n适用地区：全国\n\n消耗积分参与抽奖，
- 最高赢整单免单券，还有巨无霸兑换券等好礼。\n\n领
- 取优惠券：https://mcdonalds.com.cn/lottery\n\n来源：麦当劳 MC
- P · 活动日历
-CATEGORIES:积分\,全国
-URL:https://mcdonalds.com.cn/lottery
-END:VEVENT
-BEGIN:VEVENT
-UID:camp_202610_breakfast_week-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
+UID:camp_一口爆汁蓝莓爆爆珠麦旋风上新@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
 DTSTART;VALUE=DATE:20261012
 DTEND;VALUE=DATE:20261013
-SUMMARY:早餐卡优惠周 · 活动上线
+SUMMARY:🫐一口爆汁！蓝莓爆爆珠麦旋风上新
 LOCATION:全国
-DESCRIPTION:【优惠券活动】早餐卡优惠周\n时间：2026-10-12 
- 至 2026-10-19\n适用地区：全国\n\n早餐卡限时优惠周：麦
- 满分系列第二件半价，任意早餐套餐减 5 元。\n\n领取
- 优惠券：https://mcdonalds.com.cn/breakfast-week\n\n来源：麦当
- 劳 MCP · 活动日历
-CATEGORIES:早餐\,全国
-URL:https://mcdonalds.com.cn/breakfast-week
+DESCRIPTION:【营销活动】🫐一口爆汁！蓝莓爆爆珠麦旋风
+ 上新\n时间：2026-10-12\n适用地区：全国\n\n🫐蓝莓爆爆
+ 珠麦旋风上新！ 💜清甜蓝莓碰上醇厚奶香，酸甜清爽
+ 。 💥真实蓝莓原浆x爆爆珠，颗颗爆汁好惊喜。 😋绵
+ 密冰淇淋撞上弹爽口感，莓好滋味层层爆开！ 还在等
+ 什么，马上尝新~\n\n领取优惠券：https://www.mcdonalds.com.cn
+ /\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_breakfast_week-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261019
-DTEND;VALUE=DATE:20261020
-SUMMARY:早餐卡优惠周 · 即将截止
+UID:camp_麦咖啡139r浓浓黑巧来啦@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:🍫麦咖啡13.9r浓浓黑巧来啦！
 LOCATION:全国
-DESCRIPTION:【优惠券活动】早餐卡优惠周\n时间：2026-10-12 
- 至 2026-10-19\n适用地区：全国\n\n早餐卡限时优惠周：麦
- 满分系列第二件半价，任意早餐套餐减 5 元。\n\n领取
- 优惠券：https://mcdonalds.com.cn/breakfast-week\n\n来源：麦当
- 劳 MCP · 活动日历
-CATEGORIES:早餐\,全国
-URL:https://mcdonalds.com.cn/breakfast-week
+DESCRIPTION:【营销活动】🍫麦咖啡13.9r浓浓黑巧来啦！\n
+ 时间：2026-10-12\n适用地区：全国\n\n地道浓醇黑巧，风
+ 味浓郁醇厚 200目精细研磨工艺，触感丝滑如绒 戳下方
+ ，速来解锁！\n\n领取优惠券：https://www.mcdonalds.com.cn/\n\
+ n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_mccafe_half-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261013
-DTEND;VALUE=DATE:20261014
-SUMMARY:麦咖啡第二杯半价 · 活动上线
+UID:camp_麦咖啡一早现磨元气早餐震撼来袭@mcd-activity-calen
+ dar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:麦咖啡一早现磨🥳元气早餐震撼来袭！
 LOCATION:全国
-DESCRIPTION:【优惠券活动】麦咖啡第二杯半价\n时间：2026-
- 10-13 至 2026-10-25\n适用地区：全国\n\n麦咖啡全场第二杯
- 半价，午后时段专享。\n\n领取优惠券：https://mcdonalds.co
- m.cn/mccafe-half\n\n来源：麦当劳 MCP · 活动日历
-CATEGORIES:咖啡\,全国
-URL:https://mcdonalds.com.cn/mccafe-half
+DESCRIPTION:【营销活动】麦咖啡一早现磨🥳元气早餐震撼
+ 来袭！\n时间：2026-10-12\n适用地区：全国\n\n☕甄选 2024I
+ IAC 国际咖啡品鉴大赛“金奖“咖啡豆 🥪多款人气早餐
+ 主食随心挑选，满足你的多种需求 ✨清晨能量一键配
+ 齐，14.9元起，开启你的元气一天\n\n领取优惠券：https:/
+ /www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_mccafe_half-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261025
-DTEND;VALUE=DATE:20261026
-SUMMARY:麦咖啡第二杯半价 · 即将截止
+UID:camp_灰白撞色灰焰圆筒酷爽登场@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:🩶灰白撞色，灰焰圆筒酷爽登场
 LOCATION:全国
-DESCRIPTION:【优惠券活动】麦咖啡第二杯半价\n时间：2026-
- 10-13 至 2026-10-25\n适用地区：全国\n\n麦咖啡全场第二杯
- 半价，午后时段专享。\n\n领取优惠券：https://mcdonalds.co
- m.cn/mccafe-half\n\n来源：麦当劳 MCP · 活动日历
-CATEGORIES:咖啡\,全国
-URL:https://mcdonalds.com.cn/mccafe-half
+DESCRIPTION:【营销活动】🩶灰白撞色，灰焰圆筒酷爽登场
+ \n时间：2026-10-12\n适用地区：全国\n\n🩶灰焰圆筒酷爽
+ 上新！ 🍦浓郁香草味碰上酷灰脆筒，灰白撞色吸睛。 
+ ✨入口绵密丝滑，一口咬下筒壳咔嚓酥脆。 😋绵密与
+ 香脆层层交织，一口解锁甜酷反差！ 还在等什么，马
+ 上尝新~\n\n领取优惠券：https://www.mcdonalds.com.cn/\n\n来源
+ ：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_malaji_bogo@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261015
-DTEND;VALUE=DATE:20261019
-SUMMARY:麦辣鸡腿堡买一送一
+UID:camp_学生专属49元150天麦金学期卡@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:学生专属！49元150天麦金学期卡💳
 LOCATION:全国
-DESCRIPTION:【优惠券活动】麦辣鸡腿堡买一送一\n时间：20
- 26-10-15 至 2026-10-18\n适用地区：全国\n\n麦辣鸡腿堡买一
- 送一，每天限量 1000 份，先到先得。\n\n领取优惠券：ht
- tps://mcdonalds.com.cn/malaji-bogo\n\n来源：麦当劳 MCP · 活动
- 日历
-CATEGORIES:限时优惠\,全国
-URL:https://mcdonalds.com.cn/malaji-bogo
+DESCRIPTION:【营销活动】学生专属！49元150天麦金学期卡
+ 💳\n时间：2026-10-12\n适用地区：全国\n\n💰仅0.33元/天
+ ，到手150天吃麦特权！ 5️⃣折起吃超值四件套、6折吃
+ 早餐 🛵每日两次满额免配，9.9元麦咖啡 🦉开卡还送
+ 多邻国月卡，美味和学习一步到位 👛新学期钱包不吃
+ 紧，开心吃麦快乐学习！\n\n领取优惠券：https://www.mcdon
+ alds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_new_burger-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261016
-DTEND;VALUE=DATE:20261017
-SUMMARY:新品上市·黑松露安格斯堡 · 活动上线
+UID:camp_韩风刮到了四件套龙焰鸡腿堡来袭@mcd-activity-calen
+ dar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:“韩”风刮到了四件套~龙焰鸡腿堡来袭！
 LOCATION:全国
-DESCRIPTION:【新品上市】新品上市·黑松露安格斯堡\n时间
- ：2026-10-16 至 2026-10-31\n适用地区：全国\n\n黑松露安格
- 斯堡全新上市，首周购买可领取新品立减券。\n\n领取
- 优惠券：https://mcdonalds.com.cn/new-burger\n\n来源：麦当劳 MC
- P · 活动日历
-CATEGORIES:新品\,全国
-URL:https://mcdonalds.com.cn/new-burger
+DESCRIPTION:【营销活动】“韩”风刮到了四件套~龙焰鸡腿
+ 堡来袭！\n时间：2026-10-12\n适用地区：全国\n\n🍔麦金
+ 卡点「龙焰鸡腿堡」四件套29元起 🍗韩式辣酱碰撞青
+ 梅黄油，爆脆鸡腿排多汁裹酱！ ✨一张麦金卡包揽全
+ 天吃麦特权 6折早餐、9.9元麦咖啡、满额免配统统安排 
+ 😋快来打卡美味，这场韩式盛宴等你加入！\n\n领取优
+ 惠券：https://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活
+ 动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_new_burger-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261031
-DTEND;VALUE=DATE:20261101
-SUMMARY:新品上市·黑松露安格斯堡 · 即将截止
+UID:camp_乐享90分钟高质量亲子时间@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:乐享90分钟高质量亲子时间
 LOCATION:全国
-DESCRIPTION:【新品上市】新品上市·黑松露安格斯堡\n时间
- ：2026-10-16 至 2026-10-31\n适用地区：全国\n\n黑松露安格
- 斯堡全新上市，首周购买可领取新品立减券。\n\n领取
- 优惠券：https://mcdonalds.com.cn/new-burger\n\n来源：麦当劳 MC
- P · 活动日历
-CATEGORIES:新品\,全国
-URL:https://mcdonalds.com.cn/new-burger
+DESCRIPTION:【营销活动】乐享90分钟高质量亲子时间\n时间
+ ：2026-10-12\n适用地区：全国\n\n打造高质量陪伴时光🎊 
+ 9本热门书籍且每月更新！ 更有开心乐园餐+随机玩具一
+ 份🎁 好吃又好玩！快报名参加吧~\n\n领取优惠券：https
+ ://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_bigmac_50-start@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261020
-DTEND;VALUE=DATE:20261021
-SUMMARY:巨无霸 50 周年庆 · 活动上线
+UID:camp_快来一起参加麦麦派对吧@mcd-activity-calendar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261012
+DTEND;VALUE=DATE:20261013
+SUMMARY:快来一起参加麦麦派对吧！
 LOCATION:全国
-DESCRIPTION:【主题活动】巨无霸 50 周年庆\n时间：2026-10-20
-  至 2026-10-31\n适用地区：全国\n\n巨无霸 50 周年限定套
- 餐上市，购买套餐可集点兑换周年徽章。\n\n领取优惠
- 券：https://mcdonalds.com.cn/bigmac-50\n\n来源：麦当劳 MCP · 
+DESCRIPTION:【营销活动】快来一起参加麦麦派对吧！\n时
+ 间：2026-10-12\n适用地区：全国\n\n遛娃好去处🎉麦当劳
+ 趣读派对！ 6大环节，趣味互动✨ 好吃又好玩，快乐持
+ 续加倍！ 👇一起领取“读书小达人“证书吧~\n\n领取
+ 优惠券：https://www.mcdonalds.com.cn/\n\n来源：麦当劳 MCP · 
  活动日历
-CATEGORIES:主题\,全国
-URL:https://mcdonalds.com.cn/bigmac-50
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 BEGIN:VEVENT
-UID:camp_202610_bigmac_50-end@mcd-activity-calendar
-DTSTAMP:20261012T022820Z
-DTSTART;VALUE=DATE:20261031
-DTEND;VALUE=DATE:20261101
-SUMMARY:巨无霸 50 周年庆 · 即将截止
+UID:camp_第三周周边即将开售限定主题丝巾@mcd-activity-calen
+ dar
+DTSTAMP:20261012T091456Z
+DTSTART;VALUE=DATE:20261022
+DTEND;VALUE=DATE:20261023
+SUMMARY:第三周周边即将开售✨限定主题丝巾！
 LOCATION:全国
-DESCRIPTION:【主题活动】巨无霸 50 周年庆\n时间：2026-10-20
-  至 2026-10-31\n适用地区：全国\n\n巨无霸 50 周年限定套
- 餐上市，购买套餐可集点兑换周年徽章。\n\n领取优惠
- 券：https://mcdonalds.com.cn/bigmac-50\n\n来源：麦当劳 MCP · 
- 活动日历
-CATEGORIES:主题\,全国
-URL:https://mcdonalds.com.cn/bigmac-50
+DESCRIPTION:【营销活动】第三周周边即将开售✨限定主题
+ 丝巾！\n时间：2026-10-22\n适用地区：全国\n\n丝巾搭配棒
+ 球帽的潮流谁懂😎 麦当劳「我就喜欢」限定丝巾 任意
+ 餐品消费加 39.9 元即可得 颈间、包袋、手腕、头饰一
+ 巾多玩🤔 叠搭联名棒球帽&徽章随心玩出专属潮流造型
+ ✨ 10月22日10:45开售 更有APP专享积分抢先购10:40开抢 get
+ 时尚icon同款潮流造型\n\n领取优惠券：https://www.mcdonalds.
+ com.cn/\n\n来源：麦当劳 MCP · 活动日历
+CATEGORIES:活动\,全国
+URL:https://www.mcdonalds.com.cn/
 END:VEVENT
 END:VCALENDAR
