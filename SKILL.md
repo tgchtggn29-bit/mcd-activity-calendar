@@ -1,6 +1,7 @@
 ---
 name: mcd-activity-calendar
 description: 麦麦权益与收藏日历（McCalendar）。基于麦当劳 MCP 能力，把营销活动、收藏品上新、积分兑换与优惠券做成可订阅的 ICS 日历，PC 端 WorkBuddy 里用自然语言查询/领券/查积分，手机端通过远程日历 URL 订阅并提前一天提醒。当用户说「麦当劳活动」「麦麦活动」「订阅麦当劳日历」「麦当劳收藏品」「帮我领券」「查我的积分」「积分抽奖」「麦当劳主题活动」「附近麦当劳」时使用。
+agent_created: true
 ---
 
 # 麦麦权益与收藏日历（McCalendar）

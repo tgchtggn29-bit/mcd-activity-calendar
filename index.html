@@ -155,6 +155,30 @@
       </div>
       <div class="muted-note">个人权益（领券 / 积分 / 卡包）需在 WorkBuddy 中配置你的麦当劳 MCP Token 并授权后使用。</div>
     </div>
+
+    <div class="card" id="install-skill">
+      <h2>💻 安装 PC Skill（在 WorkBuddy 里用 AI 对话）</h2>
+      <div class="tip">除了订阅日历，还可以把本 Skill 装进 WorkBuddy，用一句「更新麦当劳日历」「帮我领券」「我有多少积分」直接操作。</div>
+      <ol class="steps">
+        <li>申请麦当劳 MCP Token：<a href="https://open.mcd.cn/mcp" target="_blank" rel="noopener" style="color:#DA291C">open.mcd.cn/mcp</a>（手机号登录 → 控制台 → 激活）</li>
+        <li>打开 WorkBuddy →「技能」→「从 GitHub 导入」，填入仓库地址</li>
+        <li>在 WorkBuddy 的 MCP 配置里加入下面的 JSON 并点「信任」</li>
+      </ol>
+      <div class="sub-url" style="font-family:'SF Mono',Menlo,monospace;font-size:11.5px;line-height:1.5">{
+  "mcpServers": {
+    "mcd-mcp": {
+      "type": "streamablehttp",
+      "url": "https://mcp.mcd.cn",
+      "headers": { "Authorization": "Bearer 你的_TOKEN" }
+    }
+  }
+}</div>
+      <div class="row">
+        <a class="btn small" href="https://github.com/tgchtggn29-bit/mcd-activity-calendar" target="_blank" rel="noopener">📦 GitHub 仓库</a>
+        <a class="btn small outline" href="https://github.com/tgchtggn29-bit/mcd-activity-calendar/blob/main/INSTALL.md" target="_blank" rel="noopener">📖 完整安装说明</a>
+      </div>
+      <div class="muted-note">安装后对 WorkBuddy 说「更新麦当劳日历」即可验证是否安装成功。</div>
+    </div>
   </div>
 
   <div class="panel" id="p-activity">

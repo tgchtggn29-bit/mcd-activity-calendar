@@ -32,6 +32,8 @@ PC 端 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品
 
 ## 安装方法
 
+> 📖 完整安装说明（三种安装方式 + Token 配置 + 常见问题）见 **[INSTALL.md](INSTALL.md)**。
+
 ### 前置条件
 
 1. 申请麦当劳 MCP Token：https://open.mcd.cn/mcp（手机号登录 → 控制台 → 激活）
@@ -137,6 +139,7 @@ PC 端 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品
 mcd-activity-calendar/
 ├── SKILL.md                  # WorkBuddy Skill 入口
 ├── README.md                 # 本文件
+├── INSTALL.md                # 安装说明（三种安装方式 + Token 配置 + 常见问题）
 ├── CONTEST_DECLARATION.md    # 官方参赛声明
 ├── MCP_INTEGRATION.md        # MCP 集成说明
 ├── mcp-config.example.json   # 脱敏配置示例
