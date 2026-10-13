@@ -185,8 +185,7 @@ def build_campaign_calendar():
                 'url': link,
                 'alarm_date': seg['s'], 'alarm_summary': title,
             })
-    ics = build_calendar('麦麦活动日历', '麦当劳营销活动 · 上线/截止提前一天提醒，点开即领券', events)
-    return ics, len(campaigns), len(events)
+    return events
 
 # ---------------- 收藏日历（五大类） ----------------
 def build_collectibles_calendar():
@@ -230,7 +229,7 @@ def build_collectibles_calendar():
             'alarm_date': up, 'alarm_summary': name + ' 发售提醒',
         })
     ics = build_calendar('麦麦收藏日历', '麦当劳收藏品/联名周边/玩具上新 · 发售前一天提醒', events)
-    return ics, len(items), len(events)
+    return events
 
 # ---------------- 权益日历（积分兑换到期提醒） ----------------
 def build_benefits_calendar():
@@ -272,21 +271,31 @@ def build_benefits_calendar():
             'alarm_date': down, 'alarm_summary': name + ' 即将截止兑换',
         })
     ics = build_calendar('麦麦权益日历', '麦当劳积分兑换/权益到期 · 截止前一天提醒', events)
-    return ics, len(items), len(events)
+    return events
 
 def main():
-    out = {}
-    ics, nc, ne = build_campaign_calendar()
-    open(os.path.join(ASSETS, 'calendar.ics'), 'w', encoding='utf-8', newline='').write(ics)
-    print('活动日历 calendar.ics：活动 %d，日程 %d，%d 字节' % (nc, ne, len(ics.encode())))
+    campaign_events = build_campaign_calendar()
+    collect_events = build_collectibles_calendar()
+    benefit_events = build_benefits_calendar()
 
-    ics2, nc2, ne2 = build_collectibles_calendar()
+    # 独立日历
+    ics1 = build_calendar('麦麦活动日历', '麦当劳营销活动 · 上线/截止提前一天提醒，点开即领券', campaign_events)
+    open(os.path.join(ASSETS, 'calendar.ics'), 'w', encoding='utf-8', newline='').write(ics1)
+    print('活动日历 calendar.ics：日程 %d，%d 字节' % (len(campaign_events), len(ics1.encode())))
+
+    ics2 = build_calendar('麦麦收藏日历', '麦当劳收藏品/联名周边/玩具上新 · 发售前一天提醒', collect_events)
     open(os.path.join(ASSETS, 'calendar-collectibles.ics'), 'w', encoding='utf-8', newline='').write(ics2)
-    print('收藏日历 calendar-collectibles.ics：收藏品 %d，日程 %d，%d 字节' % (nc2, ne2, len(ics2.encode())))
+    print('收藏日历 calendar-collectibles.ics：日程 %d，%d 字节' % (len(collect_events), len(ics2.encode())))
 
-    ics3, nc3, ne3 = build_benefits_calendar()
+    ics3 = build_calendar('麦麦权益日历', '麦当劳积分兑换/权益到期 · 截止前一天提醒', benefit_events)
     open(os.path.join(ASSETS, 'calendar-benefits.ics'), 'w', encoding='utf-8', newline='').write(ics3)
-    print('权益日历 calendar-benefits.ics：权益 %d，日程 %d，%d 字节' % (nc3, ne3, len(ics3.encode())))
+    print('权益日历 calendar-benefits.ics：日程 %d，%d 字节' % (len(benefit_events), len(ics3.encode())))
+
+    # 合并日历（活动 + 收藏 + 权益 一个订阅全搞定）
+    all_events = campaign_events + collect_events + benefit_events
+    ics_all = build_calendar('麦麦权益与收藏日历', '麦当劳活动/收藏品/积分权益合集 · 上线、发售、截止提前一天提醒', all_events)
+    open(os.path.join(ASSETS, 'calendar-all.ics'), 'w', encoding='utf-8', newline='').write(ics_all)
+    print('合并日历 calendar-all.ics：日程 %d，%d 字节' % (len(all_events), len(ics_all.encode())))
 
 if __name__ == '__main__':
     main()

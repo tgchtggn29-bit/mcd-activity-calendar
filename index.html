@@ -135,11 +135,13 @@
     <div class="card">
       <h2>📅 订阅麦麦日历</h2>
       <ol class="steps">
-        <li>选择下方要订阅的日历类别，复制订阅地址</li>
-        <li>添加到手机 / 电脑日历（通过 URL 添加）</li>
-        <li>活动上线、收藏品发售前一天自动提醒你</li>
+        <li>复制下方订阅地址（推荐「合集」），添加到手机 / 电脑日历</li>
+        <li>活动上线、收藏品发售、积分到期前一天自动提醒你</li>
       </ol>
-      <h3>可选订阅日历</h3>
+      <h3>⭐ 合集日历（推荐，一个订阅全搞定）</h3>
+      <div class="sub-url" id="icsAll">加载中…</div>
+      <button class="btn small" onclick="copyText(document.getElementById('icsAll').textContent, '合集日历')">📋 复制合集日历地址</button>
+      <h3>按类别订阅（可选）</h3>
       <div class="sub-url" id="icsCampaign">加载中…</div>
       <button class="btn small yellow" onclick="copyText(document.getElementById('icsCampaign').textContent, '活动日历')">📋 复制活动日历地址</button>
       <div class="sub-url" id="icsCollect">加载中…</div>
@@ -219,11 +221,301 @@
 <script src="https://map.qq.com/api/gljs?v=1.exp"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
 
+<script type="application/json" id="campaigns-data">
+[
+  {
+    "id": "camp_45f3",
+    "title": "超值𝟗.𝟗元早餐两件套陪你开工啦😋",
+    "start_date": "2026-10-08",
+    "end_date": "2026-10-21",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-MCF/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDWebViewController&androidPageName=com.mcd.web.activity.BaseWebActivity&harmonyPageName=BaseWebViewPage&parameters=%7B%22url%22%3A%22https%3A%2F%2Fcdn.mcd.cn%2Fcms%2Fpages%2FmemberdayAPP.html%3Futm_source%3D125%26utm_campaign%3D26061203017%26utm_medium%3D05%22%7D&utm_source=125&utm_campaign=26061203017&utm_medium=05",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/553a0a73cd1eacee7212515b7b071b90.jpg",
+    "button_text": "立即领券",
+    "highlights": "9.9元超值早餐正式上新!",
+    "description": "早八的快乐，一堡一咖已就位🍔☕\n𝟏𝟎月𝟖日至𝟏𝟎月𝟐𝟏日\n🍔周一至周五早餐堡轮流上早班\n🤩今天这堡 明天那堡\n☕鲜萃咖啡搭档到位\n凭券两件套只要9.9元\n速戳👇快定好闹钟一起来吃",
+    "rolling": false
+  },
+  {
+    "id": "camp_185p",
+    "title": "韩式风味蘸酱上新❤️就「酱」心有所「薯」",
+    "start_date": "2026-10-08",
+    "end_date": "2026-10-08",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%7D&utm_source=125&utm_campaign=1787820593710&utm_medium=20",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/01acad0d43f6f5c062d58eecd375e167.jpg",
+    "button_text": "立即购买",
+    "highlights": "龙焰来袭！韩式新品开吃！",
+    "description": "🆕韩式辣椒黄油风味酱\n韩式辣酱碰撞青梅，裹挟黄油香气\n鸡薯双全盒仅需15.9元起✨getGD同款花式比心\n🆕韩式烟熏芝士风味酱\n浓郁芝香邂逅韩式香辛风味，烟熏香气层层释放\n蘸酱炸鸡仅需11.9元起🍗\n炸鸡薯饼蘸酱我全都喜欢！\n10月8日 10:30起正式开售⏰",
+    "rolling": false
+  },
+  {
+    "id": "camp_en70",
+    "title": "麦当劳 X PEACEMINUSONE",
+    "start_date": "2026-10-08",
+    "end_date": "2026-10-08",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%7D&utm_source=125&utm_campaign=1787820593710&utm_medium=20",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/689d30bef705f848fe1fd3cfc0f419b2.jpg",
+    "button_text": "立即抢购",
+    "highlights": "即刻入手GD同款复古棒球帽",
+    "description": "GD同款联名复古棒球帽\n任意餐品消费加39.9元即可得\n经典红黄配色搭配复古轮廓，MV同款灵感重现\n更有标志性小雏菊刺绣图案点缀\n10月8日10:45开售\n更有APP专享积分抢先购10:40开抢\n与GD一起探索潮流新篇章🖤",
+    "rolling": false
+  },
+  {
+    "id": "camp_939d",
+    "title": "麦当劳联动G-DRAGON",
+    "start_date": "2026-10-08",
+    "end_date": "2026-10-08",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%7D&utm_source=125&utm_campaign=1787820593710&utm_medium=20",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/25809373fbf2e5f9bb9699195149b88a.jpg",
+    "button_text": "立即购买",
+    "highlights": "8da888~Spicy~",
+    "description": "带来韩式风味系列新品❗️\n龙焰鸡腿堡三件套 26.9 元起即刻开吃🍔\n韩式辣酱搭配酥脆多汁鸡腿排🤤\n还可升级29.9元龙焰芝士棒鸡腿堡三件套，\n两根马苏里拉拉丝芝士条，热时双倍拉丝更过瘾🧀\n10月8日 10:30 准时开售⏰You lovin' it？",
+    "rolling": false
+  },
+  {
+    "id": "camp_pns1",
+    "title": "🫐一口爆汁！蓝莓爆爆珠麦旋风上新",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22repc%22%3A%22G521950%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/105121c86e1023b6cc4b7fb4754ca145.jpg",
+    "button_text": "立即购买",
+    "highlights": "蓝莓清香一口爆开",
+    "description": "🫐蓝莓爆爆珠麦旋风上新！\n💜清甜蓝莓碰上醇厚奶香，酸甜清爽。\n💥真实蓝莓原浆x爆爆珠，颗颗爆汁好惊喜。\n😋绵密冰淇淋撞上弹爽口感，莓好滋味层层爆开！\n还在等什么，马上尝新~",
+    "rolling": false
+  },
+  {
+    "id": "camp_2yf9",
+    "title": "早餐爆款回归，快来pick你的厚松饼堡！📣",
+    "start_date": "2026-10-08",
+    "end_date": "2026-10-08",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-breakfast/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22recc%22%3A%2233833%22%7D ",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/76fc2955b74f7c69121d5299a0047ae1.jpg",
+    "button_text": "立即抢购",
+    "highlights": "巧克力味限时上新",
+    "description": "返工别紧张，厚松饼堡让你松软一下🫵\n🥞甜甜松饼，软软口感\n🍁经典枫糖风味和浓郁巧克力味两款可选🍫\n10月8日起，指定套餐可享早餐卡6折优惠\n3件套到手只要15元起，快来优惠吃",
+    "rolling": false
+  },
+  {
+    "id": "camp_b429",
+    "title": "🍫麦咖啡13.9r浓浓黑巧来啦！",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-MCF/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22recc%22%3A%2233289%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/6142c8e169c5c3a97bf90047ca446a46.jpg",
+    "button_text": "立即购买",
+    "highlights": "浓浓黑巧来啦！",
+    "description": "地道浓醇黑巧，风味浓郁醇厚\n200目精细研磨工艺，触感丝滑如绒\n戳下方，速来解锁！",
+    "rolling": false
+  },
+  {
+    "id": "camp_vf8f",
+    "title": "麦咖啡一早现磨🥳元气早餐震撼来袭！",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22recc%22%3A%2233289%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/0c9f4ae90aa1481bd5275588a0456869.jpg",
+    "button_text": "立即购买",
+    "highlights": "一早现磨焕新",
+    "description": "☕甄选 2024IIAC 国际咖啡品鉴大赛“金奖“咖啡豆\n🥪多款人气早餐主食随心挑选，满足你的多种需求\n✨清晨能量一键配齐，14.9元起，开启你的元气一天",
+    "rolling": false
+  },
+  {
+    "id": "camp_9b4e",
+    "title": "🩶灰白撞色，灰焰圆筒酷爽登场",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22repc%22%3A%22G521951%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/5236ca16c841a90eadb0daf4758a2945.jpg",
+    "button_text": "立即购买",
+    "highlights": "灰白撞色",
+    "description": "🩶灰焰圆筒酷爽上新！\n🍦浓郁香草味碰上酷灰脆筒，灰白撞色吸睛。\n✨入口绵密丝滑，一口咬下筒壳咔嚓酥脆。\n😋绵密与香脆层层交织，一口解锁甜酷反差！\n还在等什么，马上尝新~",
+    "rolling": false
+  },
+  {
+    "id": "camp_oskp",
+    "title": "学生专属！49元150天麦金学期卡💳",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDPostDetailViewController&androidPageName=ComponentCms&androidPageAction=cms_detail&harmonyPageName=CMSDetailPage&parameters=%7B%22postDetailId%22%3A%22vMmnR4%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/99e637e8b965cbb7895e102b5c25b0c2.png",
+    "button_text": "立即开卡",
+    "highlights": "开启省钱开心新学期",
+    "description": "💰仅0.33元/天，到手150天吃麦特权！\n5️⃣折起吃超值四件套、6折吃早餐\n🛵每日两次满额免配，9.9元麦咖啡\n🦉开卡还送多邻国月卡，美味和学习一步到位\n👛新学期钱包不吃紧，开心吃麦快乐学习！",
+    "rolling": false
+  },
+  {
+    "id": "camp_5lz9",
+    "title": "过家家派对上线，快来一起解锁梦想职业",
+    "start_date": "2026-09-09",
+    "end_date": "2026-09-09",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20260909-HM/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDReactNativeViewController&androidPageName=com.mcd.library.rn.McdReactNativeActivity&harmonyPageName=RNPage&parameters=%7B%22rctModule%22%3A%22mcdmall%22%2C%22rctModuleName%22%3A%22mallHappyMember%22%2C%22rctModuleParams%22%3A%7B%22spuId%22%3A%2211308%22%2C%22shopId%22%3A%225%22%7D%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/fd3efb9e2c3a89ba6aa8dfa4676aa333.jpg",
+    "button_text": "立即预订",
+    "highlights": "过家家尊享版全新上线",
+    "description": "过家家派对就要开始啦!\n萌娃cosplay梦想职业，精美职业服带回家\nDIY 创意手工，想象力在指尖自由绽放\n9月9日到店解锁过家家派对\n粉红姐姐带你玩转麦当劳，开启童趣一天~",
+    "rolling": false
+  },
+  {
+    "id": "camp_86i6",
+    "title": "“韩”风刮到了四件套~龙焰鸡腿堡来袭！",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDProductListViewController&androidPageName=ComponentProduct&androidPageAction=menu_list&harmonyPageName=ProductListPage&parameters=%7B%22orderType%22%3A%221%22%2C%22repc%22%3A%229900016309%22%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/b6da228249fab7761748bb6e24c50f93.jpg",
+    "button_text": "立即开卡",
+    "highlights": "29元起尝龙焰鸡腿堡四件套",
+    "description": "🍔麦金卡点「龙焰鸡腿堡」四件套29元起\n🍗韩式辣酱碰撞青梅黄油，爆脆鸡腿排多汁裹酱！\n✨一张麦金卡包揽全天吃麦特权\n6折早餐、9.9元麦咖啡、满额免配统统安排\n😋快来打卡美味，这场韩式盛宴等你加入！",
+    "rolling": false
+  },
+  {
+    "id": "camp_7dgp",
+    "title": "乐享90分钟高质量亲子时间",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/news_list",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDReactNativeViewController&androidPageName=com.mcd.library.rn.McdReactNativeActivity&harmonyPageName=RNPage&parameters=%7B%22rctModule%22%3A%22mcdmall%22%2C%22rctModuleName%22%3A%22mallHappyMember%22%2C%22rctModuleParams%22%3A%7B%22spuId%22%3A%221830%22%2C%22shopId%22%3A%225%22%7D%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/63bd426f45860fbe26025234054bf773.png",
+    "button_text": "立即预订",
+    "highlights": "快来打造属于你们的亲子阅读时间",
+    "description": "打造高质量陪伴时光🎊\n9本热门书籍且每月更新！\n更有开心乐园餐+随机玩具一份🎁\n好吃又好玩！快报名参加吧~",
+    "rolling": false
+  },
+  {
+    "id": "camp_3pma",
+    "title": "快来一起参加麦麦派对吧！",
+    "start_date": "2026-10-12",
+    "end_date": "2026-10-12",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261001-MaiMaiZhouMo/",
+    "app_jump_url": "mcdapp://page?iosPageName=MCDReactNativeViewController&androidPageName=com.mcd.library.rn.McdReactNativeActivity&parameters=%7B%22rctModule%22%3A%22mcdmall%22%2C%22rctModuleName%22%3A%22mallHappyMember%22%2C%22rctModuleParams%22%3A%7B%22spuId%22%3A%2210675%22%2C%22shopId%22%3A%225%22%7D%7D",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/39e02c45a3b5d9febaf7ac3a5d03f0b9.png",
+    "button_text": "去看看",
+    "highlights": "好吃好玩都在麦当劳",
+    "description": "遛娃好去处🎉麦当劳趣读派对！\n6大环节，趣味互动✨\n好吃又好玩，快乐持续加倍！\n👇一起领取“读书小达人“证书吧~",
+    "rolling": false
+  },
+  {
+    "id": "camp_m228",
+    "title": "第三周周边即将开售✨限定主题丝巾！",
+    "start_date": "2026-10-22",
+    "end_date": "2026-10-22",
+    "type": "营销活动",
+    "category": "活动",
+    "region": "全国",
+    "coupon_link": "https://www.mcdonalds.com.cn/news/20261008-Mcspicy/",
+    "app_jump_url": "",
+    "image": "https://cms-cdn.mcd.cn/img/short-content/fb40c37c172886ee1235c2ed21f3bde4.jpg",
+    "button_text": "提醒我",
+    "highlights": "想抢，时尚DNA动了！",
+    "description": "丝巾搭配棒球帽的潮流谁懂😎\n麦当劳「我就喜欢」限定丝巾\n任意餐品消费加 39.9 元即可得\n颈间、包袋、手腕、头饰一巾多玩🤔\n叠搭联名棒球帽&徽章随心玩出专属潮流造型✨\n10月22日10:45开售\n更有APP专享积分抢先购10:40开抢\nget时尚icon同款潮流造型",
+    "rolling": false
+  }
+]
+</script>
+<script type="application/json" id="stores-data">
+[
+  {
+    "id": "store_001",
+    "name": "麦当劳（中关村店）",
+    "address": "北京市海淀区中关村大街 27 号",
+    "lat": 39.984104,
+    "lng": 116.307503,
+    "distance": "距你 0.8 km",
+    "open_hours": "07:00-22:00"
+  },
+  {
+    "id": "store_002",
+    "name": "麦当劳（五道口店）",
+    "address": "北京市海淀区成府路 35 号",
+    "lat": 39.992996,
+    "lng": 116.337807,
+    "distance": "距你 1.9 km",
+    "open_hours": "24 小时营业"
+  },
+  {
+    "id": "store_003",
+    "name": "麦当劳（苏州街店）",
+    "address": "北京市海淀区苏州街 20 号",
+    "lat": 39.975372,
+    "lng": 116.302704,
+    "distance": "距你 2.4 km",
+    "open_hours": "07:00-23:00"
+  },
+  {
+    "id": "store_004",
+    "name": "麦当劳（人民大学店）",
+    "address": "北京市海淀区中关村大街 59 号",
+    "lat": 39.969844,
+    "lng": 116.318380,
+    "distance": "距你 3.1 km",
+    "open_hours": "07:00-22:00"
+  }
+]
+</script>
 <script>
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var DATA = null;
+  var INLINE_CAMPAIGNS = [];
+  var INLINE_STORES = [];
+  function inlineJson(id) {
+    try { var el = document.getElementById(id); return el && el.textContent.trim() ? JSON.parse(el.textContent) : null; }
+    catch (e) { console.warn('inline json parse failed:', id, e); return null; }
+  }
 
   function toast(msg) { var t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(function () { t.classList.remove('show'); }, 2200); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -279,7 +571,7 @@
   }
 
   function renderCampaigns() {
-    var list = (DATA && DATA.campaigns) || [];
+    var list = INLINE_CAMPAIGNS.length ? INLINE_CAMPAIGNS : ((DATA && DATA.campaigns) || []);
     $('eventCount').textContent = list.length;
     var box = $('eventList');
     if (!list.length) { box.innerHTML = '<div class="tip">暂无活动数据</div>'; return; }
@@ -381,7 +673,7 @@
   }
 
   function renderStores() {
-    var stores = [{ id: 'store_001', name: '麦当劳（中关村店）', address: '北京市海淀区中关村大街 27 号', lat: 39.984104, lng: 116.307503, distance: '距你 0.8 km', open_hours: '07:00-22:00' },
+    var stores = INLINE_STORES.length ? INLINE_STORES : [{ id: 'store_001', name: '麦当劳（中关村店）', address: '北京市海淀区中关村大街 27 号', lat: 39.984104, lng: 116.307503, distance: '距你 0.8 km', open_hours: '07:00-22:00' },
       { id: 'store_002', name: '麦当劳（五道口店）', address: '北京市海淀区成府路 35 号', lat: 39.992996, lng: 116.337807, distance: '距你 1.9 km', open_hours: '24 小时营业' },
       { id: 'store_003', name: '麦当劳（苏州街店）', address: '北京市海淀区苏州街 20 号', lat: 39.975372, lng: 116.302704, distance: '距你 2.4 km', open_hours: '07:00-23:00' },
       { id: 'store_004', name: '麦当劳（人民大学店）', address: '北京市海淀区中关村大街 59 号', lat: 39.969844, lng: 116.31838, distance: '距你 3.1 km', open_hours: '07:00-22:00' }];
@@ -442,6 +734,9 @@
   window.claimCode = claimCode; window.copyText = copyText; window.goApp = goApp; window.trackClick = trackClick;
 
   function init() {
+    INLINE_CAMPAIGNS = inlineJson('campaigns-data') || [];
+    INLINE_STORES = inlineJson('stores-data') || [];
+    $('icsAll').textContent = icsUrl('calendar-all.ics');
     $('icsCampaign').textContent = icsUrl('calendar.ics');
     $('icsCollect').textContent = icsUrl('calendar-collectibles.ics');
     $('icsBenefit').textContent = icsUrl('calendar-benefits.ics');

@@ -23,6 +23,7 @@ PC 端 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品
 | 能力 | 说明 |
 |---|---|
 | 双订阅系统 | 手机 ICS 日历 + PC WorkBuddy Skill，二选一或同时使用 |
+| 合集日历 | 活动/收藏/权益合并成一个 ICS，一个订阅全搞定 |
 | 多类别日历 | 活动日历 / 收藏日历 / 权益日历，可独立订阅 |
 | 提前一天提醒 | 发售/截止前一天 09:00 通过 VALARM 提醒 |
 | 一键领券 | 本人授权后自动领取全部可用券 |
@@ -51,7 +52,7 @@ PC 端 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品
 ### 使用步骤
 
 1. 在 WorkBuddy 中导入本 Skill（`SKILL.md`）
-2. 对话中说「**更新麦当劳日历**」→ 自动采集数据并生成三个 ICS
+2. 对话中说「**更新麦当劳日历**」→ 自动采集数据并生成合集 + 分三类共 4 个 ICS
 3. 说「**订阅麦当劳活动**」→ 获得订阅地址
 4. 把订阅地址添加到手机/电脑日历：
 
@@ -67,13 +68,15 @@ PC 端 WorkBuddy 里用自然语言查活动、领券、查积分、查收藏品
 | 资源 | 地址 |
 |---|---|
 | 订阅落地页 | https://mcd-activity-calendar.app.workbuddy.host/ |
+| **⭐ 合集日历 ICS（推荐）** | https://mcd-activity-calendar.app.workbuddy.host/assets/calendar-all.ics |
 | 活动日历 ICS | https://mcd-activity-calendar.app.workbuddy.host/assets/calendar.ics |
 | 收藏日历 ICS | https://mcd-activity-calendar.app.workbuddy.host/assets/calendar-collectibles.ics |
 | 权益日历 ICS | https://mcd-activity-calendar.app.workbuddy.host/assets/calendar-benefits.ics |
 | 订阅统计后台 | https://mcd-activity-calendar.app.workbuddy.host/dashboard.html |
 
 > 订阅方式：手机日历 → 通过 URL 添加日历 → 粘贴 ICS 订阅地址。
-> 活动上线、收藏品发售前一天自动提醒，点提醒里的链接直达官方详情。
+> **合集日历**把活动、收藏品、积分权益合并成一个订阅，一个地址全搞定；
+> 也可按需只订阅某一类。活动上线、收藏品发售前一天自动提醒，点提醒里的链接直达官方详情。
 
 ## 使用示例
 
@@ -144,7 +147,7 @@ mcd-activity-calendar/
 │   ├── gen_calendars.py      # 多类别 ICS 生成器
 │   └── sync_summary.py       # 生成前端公共数据
 ├── data/                     # 活动/商品/券数据库（JSON）
-├── assets/                   # 三个订阅 ICS 文件
+├── assets/                   # 4 个订阅 ICS（合集 + 活动/收藏/权益）
 ├── index.html                # 订阅落地页（多 Tab）
 └── dashboard.html            # 订阅统计面板
 ```
